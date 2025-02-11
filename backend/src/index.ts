@@ -2,14 +2,14 @@ import express, { Request, Response } from "express";
 import morgan from "morgan";
 
 import config from "./config/config";
-import reminderRoutes from "./routes/reminder";
+import reminderRoutes from "./routes/reminders";
 
 const app: express.Application = express();
 
 const port: number = config.port;
 
 app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/`);
+  console.log(`Listening at http://localhost:${port}`);
 });
 
 // ### Middleware ###
