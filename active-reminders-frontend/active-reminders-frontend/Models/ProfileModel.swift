@@ -7,11 +7,10 @@
 
 import Foundation
 
-struct Profile: Decodable {
-    let email: String?
-    //let blacklist
-
-    enum CodingKeys: String, CodingKey {
-        case email
-    }
-}
+//struct Profile: Decodable {
+//    //let blacklist
+//
+//    enum CodingKeys: String, CodingKey {
+//
+//    }
+//}

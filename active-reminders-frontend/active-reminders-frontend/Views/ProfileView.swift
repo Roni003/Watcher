@@ -15,12 +15,8 @@ struct ProfileView: View {
 
   var body: some View {
     NavigationStack {
-      Form {
         Section {
-            TextField("Email", text: $email)
-            .textContentType(.username)
-            .textInputAutocapitalization(.never)
-        }
+        Text("Email: \(email)")
 
         Section {
           if isLoading {
