@@ -26,7 +26,7 @@ struct ProfileView: View {
       }
       .navigationTitle("Profile")
       .toolbar(content: {
-        ToolbarItem(placement: .topBarLeading){
+          ToolbarItem(placement: .topBarTrailing){
           Button("Sign out", role: .destructive) {
             Task {
               try? await supabase.auth.signOut()

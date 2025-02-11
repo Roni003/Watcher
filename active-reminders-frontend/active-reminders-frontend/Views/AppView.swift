@@ -14,7 +14,9 @@ struct AppView: View {
   var body: some View {
     Group {
       if isAuthenticated {
-        ProfileView()
+          NavigationStack {
+            DashboardView()
+          }
       } else {
         AuthView()
       }
