@@ -3,7 +3,9 @@ import { Router, Request, Response } from "express";
 const router: Router = Router();
 
 // Get all reminders
-router.get("/", (req: Request, res: Response) => {});
+router.get("/", (req: Request, res: Response) => {
+  res.send("Hello from reminders");
+});
 
 // Create new reminder
 router.post("/", (req: Request, res: Response) => {});
