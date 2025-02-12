@@ -1,11 +1,15 @@
 interface Config {
   port: number;
   environment: "dev" | "prod";
+  supabaseKey: string;
+  supabaseURL: string;
 }
 
 const config: Config = {
-  port: 3000,
+  port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
   environment: "dev",
+  supabaseKey: process.env.SUPABASE_KEY || "",
+  supabaseURL: process.env.SUPABASE_URL || "",
 };
 
 export default config;

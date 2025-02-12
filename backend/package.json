@@ -6,11 +6,12 @@
   "scripts": {
     "test": "jest",
     "build": "npx tsc",
-    "start": "npx tsc && node build/src/index.js"
+    "start": "npx tsc && node --env-file=.env build/src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.1",
