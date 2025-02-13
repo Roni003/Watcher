@@ -3,12 +3,11 @@
 
 export type TriggerType =
   | "weather"
-  | "grocery"
   | "traffic"
-  | "pharmacy"
   | "tfl"
-  | "clothing"
-  | "cafe";
+  | "groceryStore"
+  | "pharmacy"
+  | "customLocation";
 
 interface IReminderTriggerBase {
   type: TriggerType;
@@ -18,16 +17,8 @@ export interface WeatherTrigger extends IReminderTriggerBase {
   type: "weather";
 }
 
-export interface GroceryTrigger extends IReminderTriggerBase {
-  type: "grocery";
-}
-
 export interface TrafficTrigger extends IReminderTriggerBase {
   type: "traffic";
-}
-
-export interface PharmacyTrigger extends IReminderTriggerBase {
-  type: "pharmacy";
 }
 
 // Trigger for TFL (Transport for London) delays.
@@ -35,20 +26,21 @@ export interface TflTrigger extends IReminderTriggerBase {
   type: "tfl";
   line: string;
 }
-
-export interface ClothingTrigger extends IReminderTriggerBase {
-  type: "clothing";
+export interface GroceryTrigger extends IReminderTriggerBase {
+  type: "groceryStore";
+}
+export interface PharmacyTrigger extends IReminderTriggerBase {
+  type: "pharmacy";
 }
 
-export interface CafeTrigger extends IReminderTriggerBase {
-  type: "cafe";
+export interface CustomLocationTrigger extends IReminderTriggerBase {
+  type: "customLocation";
 }
 
 export type IReminderTrigger =
   | WeatherTrigger
-  | GroceryTrigger
   | TrafficTrigger
-  | PharmacyTrigger
   | TflTrigger
-  | ClothingTrigger
-  | CafeTrigger;
+  | GroceryTrigger
+  | PharmacyTrigger
+  | CustomLocationTrigger;
