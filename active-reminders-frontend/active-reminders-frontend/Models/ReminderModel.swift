@@ -17,13 +17,13 @@ struct Location: Codable {
     }
 }
 
-struct Reminder: Codable {
+struct Reminder: Codable, Identifiable {
     let id: String
     let description: String
     let date: Date
     // Optional fields
     let location: Location?
     let radius: Int?
-    let trigger: String?
+    let trigger: TriggerType?
 }
 
