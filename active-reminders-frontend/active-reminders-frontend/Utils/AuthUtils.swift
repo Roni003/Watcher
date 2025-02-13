@@ -7,7 +7,7 @@
 
 import Foundation
 
-let SERVER_URL = "http://localhost:3000"
+let SERVER_URL = "http://localhost:3000/api"
 
 func getAuthToken() async -> String? {
     do {

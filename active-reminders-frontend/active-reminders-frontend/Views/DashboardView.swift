@@ -26,29 +26,19 @@ struct DashboardView: View {
       }
     })
     .task {
-        await fetchReminders()
+      await loadReminders()
     }
   }
     
-  func fetchReminders() async {
-    // Fetch from server by sending token in auth url
-    let token = await getAuthToken()
-    print(token)
-    if token == nil {
-        return
+  func loadReminders() async {
+    do {
+      let fetchedReminders = try await fetchReminders()
+      DispatchQueue.main.async {
+        self.reminders = fetchedReminders
+      }
+    } catch {
+      print("Error: \(error.localizedDescription)")
     }
-    
-    let url = URL(string: SERVER_URL + "/reminders")!
-    var request = URLRequest(url: url)
-    request.httpMethod = "GET" // or "POST", "PUT", "DELETE", etc.
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.setValue("ar-auth-token", forHTTPHeaderField: token!)
-    
-    // Set self.reminders
-    let exampleReminder = Reminder(id: "id-1", description: "This is an example reminder.", date: Date(), location: nil, trigger: nil)
-    
-    self.reminders.removeAll()
-    self.reminders.append(exampleReminder)
   }
 }
 

@@ -18,11 +18,11 @@ struct Location: Codable {
 }
 
 struct Reminder: Codable, Identifiable {
-    let id: String
-    let description: String
-    let date: Date
-    // Optional fields
-    let location: Location?
-    let trigger: TriggerType?
+  let id: String
+  let description: String
+  let created_at: String
+  // Optional fields
+  let location: Location?
+  let trigger: TriggerType?
 }
 
