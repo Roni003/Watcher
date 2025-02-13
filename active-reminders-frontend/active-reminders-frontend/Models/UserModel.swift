@@ -8,9 +8,10 @@
 import Foundation
 
 //struct Profile: Decodable {
-//    //let blacklist
+//  let blacklist
+//  var radius: number; // meters
 //
-//    enum CodingKeys: String, CodingKey {
-//
-//    }
+//  enum CodingKeys: String, CodingKey {
+//      case radius
+//  }
 //}

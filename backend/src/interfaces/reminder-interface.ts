@@ -6,6 +6,5 @@ export interface IReminder {
   description: string;
   date: Date;
   location?: ILocation;
-  radius?: number; // meters
   trigger?: IReminderTrigger;
 }

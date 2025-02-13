@@ -23,7 +23,6 @@ struct Reminder: Codable, Identifiable {
     let date: Date
     // Optional fields
     let location: Location?
-    let radius: Int?
     let trigger: TriggerType?
 }
 
