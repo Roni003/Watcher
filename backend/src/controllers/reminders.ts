@@ -11,11 +11,10 @@ export async function getReminders(req: Request, res: Response) {
         id: reminder.id,
         description: reminder.description,
         created_at: reminder.created_at,
-        location: {
-          lat: reminder.location_lat,
-          lon: reminder.location_lon,
-        },
-        trigger: reminder.trigger,
+        location: reminder.location_lat
+          ? { lat: reminder.location_lat, lon: reminder.location_lon }
+          : undefined,
+        trigger: reminder.trigger ? reminder.trigger : undefined,
       });
     }
     res.send(formattedReminders);

@@ -8,6 +8,7 @@ export async function authMiddleware(
 ) {
   const authToken = req.headers["ar-auth-token"] as string;
   if (!authToken) {
+    console.log("Unauthorized, missing ar-auth-token header");
     res.status(401).send("Unauthorized, missing ar-auth-token header");
     return;
   }
