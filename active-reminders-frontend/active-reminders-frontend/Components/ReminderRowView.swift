@@ -24,5 +24,11 @@ struct ReminderRowView: View {
     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
     .padding(8.0)
     .background(.gray.opacity(0.2))
+    .swipeActions() {
+      Button("Delete", systemImage: "trash") {
+        print("Deleting reminder \(reminder.id)")
+      }
+      .tint(.red)
+    }
   }
 }

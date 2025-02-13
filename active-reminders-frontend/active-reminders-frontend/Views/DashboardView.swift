@@ -45,6 +45,10 @@ struct DashboardView: View {
     request.setValue("ar-auth-token", forHTTPHeaderField: token!)
     
     // Set self.reminders
+    let exampleReminder = Reminder(id: "id-1", description: "This is an example reminder.", date: Date(), location: nil, trigger: nil)
+    
+    self.reminders.removeAll()
+    self.reminders.append(exampleReminder)
   }
 }
 
