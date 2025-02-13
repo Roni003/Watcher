@@ -18,7 +18,7 @@ struct DashboardView: View {
     .navigationTitle("Dashboard")
     .toolbar(content: {
         ToolbarItem(placement: .topBarTrailing){
-          NavigationLink(destination: ProfileView()) {
+            NavigationLink(destination: SettingsView()) {
               Image(systemName: "gearshape")
                   .foregroundColor(.blue)
           }
@@ -45,3 +45,6 @@ struct DashboardView: View {
     }
 }
 
+#Preview {
+  DashboardView()
+}
