@@ -1,5 +1,5 @@
 //
-//  ProfileView.swift
+//  SettingsView.swift
 //  active-reminders-frontend
 //
 //  Created by Ronik on 11/02/2025.
@@ -32,12 +32,12 @@ struct SettingsView: View {
       }
     })
     .task {
-      await getInitialProfile()
+      await getInitialSettings()
     }
   }
   
   
-  func getInitialProfile() async {
+  func getInitialSettings() async {
     do {
       let currentUser = try await supabase.auth.session.user
       
