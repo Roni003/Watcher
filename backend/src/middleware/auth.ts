@@ -1,13 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { IAuthenticatedRequest } from "../interfaces/authenticated-request-interface";
 import { getUserFromToken } from "../utils/supabase/supabase-utils";
 
 export async function authMiddleware(
-  expressRequest: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const req = expressRequest as IAuthenticatedRequest;
   const authToken = req.headers["ar-auth-token"] as string;
   if (!authToken) {
     res.status(401).send("Unauthorized, missing ar-auth-token header");
@@ -20,7 +18,6 @@ export async function authMiddleware(
     req.user = {
       id: user.id,
     };
-    // console.log("User: ", user);
     next();
   } catch (error) {
     console.error("[Error verifying ar-auth-token] " + error);

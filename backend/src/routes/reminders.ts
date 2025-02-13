@@ -1,11 +1,10 @@
 import { Router, Request, Response } from "express";
+import { getReminders } from "../controllers/reminders";
 
 const router: Router = Router();
 
 // Get all reminders
-router.get("/", (req: Request, res: Response) => {
-  res.send("Hello from reminders");
-});
+router.get("/", getReminders);
 
 // Create new reminder
 router.post("/", (req: Request, res: Response) => {});
