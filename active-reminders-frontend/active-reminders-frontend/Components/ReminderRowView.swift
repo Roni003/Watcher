@@ -25,9 +25,16 @@ struct ReminderRowView: View {
     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
     .swipeActions() {
       Button("Delete", systemImage: "trash") {
-        print("Deleting reminder \(reminder.id)")
+        deleteReminder(reminder)
       }
       .tint(.red)
     }
+  }
+}
+
+func deleteReminder(_ reminder: Reminder) {
+  print("Deleting reminder \(reminder.id)...")
+  Task {
+    try await deleteReminder(reminder.id)
   }
 }
