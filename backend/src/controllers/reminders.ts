@@ -3,42 +3,50 @@ import {
   getRemindersForUser,
   getReminderById,
   deleteReminderById,
+  createNewReminder,
 } from "../services/reminder-service";
 import { IReminder } from "../interfaces/reminder-interface";
-import supabaseClient from "../services/supabase";
 
 export async function getReminders(req: Request, res: Response) {
   try {
     const { data: reminders, error } = await getRemindersForUser(req.user.id);
-    if (error || !reminders) {
-      console.error("[Error getting reminders] " + error);
-      res.status(500).send("Error getting reminders");
+
+    if (error) {
+      console.error("[Error getting reminders]", error);
+      res.status(500).json({
+        error: "Error getting reminders",
+        status: 500,
+      });
       return;
     }
-    const formattedReminders: IReminder[] = [];
-    for (const reminder of reminders) {
-      formattedReminders.push({
-        id: reminder.id,
-        description: reminder.description,
-        created_at: reminder.created_at,
-        location: reminder.location_lat
-          ? { lat: reminder.location_lat, lon: reminder.location_lon }
-          : undefined,
-        trigger: reminder.trigger ? reminder.trigger : undefined,
-      });
+
+    if (!reminders) {
+      res.status(200).json([]);
+      return;
     }
-    res.send(formattedReminders);
+
+    res.status(200).json(reminders);
   } catch (error) {
-    console.error("[Error getting reminders] " + error);
-    res.status(500).send("Error getting reminders");
+    console.error("[Error getting reminders]", error);
+    res.status(500).json({
+      error: "Error getting reminders",
+      status: 500,
+    });
   }
 }
 
 export async function createReminder(req: Request, res: Response) {
-  // Get reminder data from request body
-  // Validate reminder data
-  // Create reminder in database
-  // Return reminder data
+  const reminderData: IReminder = req.body;
+  const userId: string = req.user.id;
+
+  const { data, error } = await createNewReminder(reminderData, userId);
+  if (error) {
+    console.error("[Error creating reminder] " + error);
+    res.status(400).json({ error: error.message });
+    return;
+  }
+
+  res.json({ message: "Reminder created successfully", reminder: data });
 }
 
 export async function deleteReminder(req: Request, res: Response) {

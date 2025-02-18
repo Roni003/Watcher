@@ -1,5 +1,9 @@
 import { Router, Request, Response } from "express";
-import { getReminders, deleteReminder } from "../controllers/reminders";
+import {
+  getReminders,
+  deleteReminder,
+  createReminder,
+} from "../controllers/reminders";
 
 const router: Router = Router();
 
@@ -7,7 +11,7 @@ const router: Router = Router();
 router.get("/", getReminders);
 
 // Create new reminder
-router.post("/", (req: Request, res: Response) => {});
+router.post("/", createReminder);
 
 // Delete reminder
 router.delete("/:id", deleteReminder);
