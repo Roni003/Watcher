@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import {
   getRemindersForUser,
-  getReminderById,
+  getRemindersById,
   deleteReminderById,
   createNewReminder,
 } from "../services/reminder-service";
@@ -50,13 +50,10 @@ export async function createReminder(req: Request, res: Response) {
 }
 
 export async function deleteReminder(req: Request, res: Response) {
-  // Get reminder id from request params
-  // Delete reminder from database
-  // Return success message
   const reminderId: string = req.params.id;
   const userId: string = req.user.id;
 
-  const { data, error } = await getReminderById(reminderId, userId);
+  const { data, error } = await getRemindersById(reminderId, userId);
   if (error) {
     console.error("[Error deleting reminder] " + error);
     res.status(500).json({ error: error.message });

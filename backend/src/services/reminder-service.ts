@@ -1,4 +1,4 @@
-import { IReminder } from "../interfaces/reminder-interface";
+import { IReminder, ReminderMetadata } from "../interfaces/reminder-interface";
 import { TriggerType } from "../interfaces/trigger-interface";
 import supabaseClient from "./supabase";
 
@@ -11,7 +11,7 @@ export async function getRemindersForUser(userId: string) {
   return { data, error };
 }
 
-export async function getReminderById(reminderId: string, userId: string) {
+export async function getRemindersById(reminderId: string, userId: string) {
   const { data, error } = await supabaseClient
     .from("reminders")
     .select("*")
@@ -25,37 +25,26 @@ export async function createNewReminder(
   reminderData: Omit<IReminder, "id" | "created_at">,
   userId: string
 ) {
-  // If there is a trigger, check if trigger type is valid
-  if (
-    reminderData.trigger &&
-    !Object.values(TriggerType).includes(reminderData.trigger)
-  ) {
-    return {
-      error: new Error(
-        "Invalid trigger type, must be one of the TriggerType: " +
-          Object.values(TriggerType).join(", ")
-      ),
-    };
-  }
-
-  // Convert location coordinates to numbers if they exist
-  const location = reminderData.location
-    ? {
-        lat: Number(reminderData.location.lat),
-        lon: Number(reminderData.location.lon),
-      }
-    : undefined;
-
-  if (
-    (location && reminderData.trigger != TriggerType.CustomLocation) ||
-    ((!location?.lat || !location.lon) &&
-      reminderData.trigger == TriggerType.CustomLocation)
-  ) {
-    return {
-      error: new Error(
-        "Invalid trigger type to use a custom given location, trigger type must be customLocation"
-      ),
-    };
+  // Validate metadata based on trigger type
+  // TODO: Refactor this to use a more generic approach
+  if (reminderData.trigger) {
+    console.log(reminderData.metadata);
+    if (
+      reminderData.trigger === TriggerType.CUSTOMLOCATION &&
+      (!reminderData.metadata || !("location" in reminderData.metadata))
+    ) {
+      return {
+        error: new Error("Invalid metadata for CUSTOMLOCATION trigger"),
+      };
+    }
+    if (
+      reminderData.trigger === TriggerType.TFL &&
+      (!reminderData.metadata || !("line" in reminderData.metadata))
+    ) {
+      return {
+        error: new Error("Invalid metadata for TFL trigger"),
+      };
+    }
   }
 
   const { data, error } = await supabaseClient
@@ -63,13 +52,16 @@ export async function createNewReminder(
     .insert([
       {
         ...reminderData,
-        location, // Use the converted location
         user_id: userId,
         created_at: new Date().toISOString(),
       },
     ])
     .select()
     .single();
+
+  if (error) {
+    return { error };
+  }
 
   return { data, error };
 }
