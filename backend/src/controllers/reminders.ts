@@ -1,11 +1,20 @@
 import { Request, Response } from "express";
-import { getRemindersForUser } from "../services/reminder-service";
+import {
+  getRemindersForUser,
+  getReminderById,
+  deleteReminderById,
+} from "../services/reminder-service";
 import { IReminder } from "../interfaces/reminder-interface";
 import supabaseClient from "../services/supabase";
 
 export async function getReminders(req: Request, res: Response) {
   try {
-    const reminders = await getRemindersForUser(req.user.id);
+    const { data: reminders, error } = await getRemindersForUser(req.user.id);
+    if (error || !reminders) {
+      console.error("[Error getting reminders] " + error);
+      res.status(500).send("Error getting reminders");
+      return;
+    }
     const formattedReminders: IReminder[] = [];
     for (const reminder of reminders) {
       formattedReminders.push({
@@ -39,35 +48,22 @@ export async function deleteReminder(req: Request, res: Response) {
   const reminderId: string = req.params.id;
   const userId: string = req.user.id;
 
-  // Check if reminder exists
-  const { data, error } = await supabaseClient
-    .from("reminders")
-    .select("*")
-    .eq("id", reminderId)
-    .eq("user_id", userId);
-
+  const { data, error } = await getReminderById(reminderId, userId);
   if (error) {
-    console.error("[Error finding reminder] " + error.message);
+    console.error("[Error deleting reminder] " + error);
     res.status(500).json({ error: error.message });
     return;
   }
 
-  if (data.length === 0) {
-    res
-      .status(404)
-      .json({ error: "Reminder not found with id: " + reminderId });
+  if (!data || data.length === 0) {
+    res.status(404).json({ error: `Reminder with id=${reminderId} not found` });
     return;
   }
 
-  const response = await supabaseClient
-    .from("reminders")
-    .delete()
-    .eq("id", reminderId)
-    .eq("user_id", userId);
-
-  if (response.error) {
-    console.error("[Error deleting reminder] " + response.error.message);
-    res.status(500).json({ error: response.error.message });
+  const { error: err } = await deleteReminderById(reminderId, userId);
+  if (err) {
+    console.error("[Error deleting reminder] " + err);
+    res.status(500).json({ error: err.message });
     return;
   }
 

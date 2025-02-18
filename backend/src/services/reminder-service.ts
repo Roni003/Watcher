@@ -9,9 +9,25 @@ export async function getRemindersForUser(userId: string) {
     .select("*")
     .eq("user_id", userId);
 
-  if (error) {
-    throw new Error(error.message);
-  }
+  return { data, error };
+}
 
-  return data;
+export async function getReminderById(reminderId: string, userId: string) {
+  const { data, error } = await supabaseClient
+    .from("reminders")
+    .select("*")
+    .eq("id", reminderId)
+    .eq("user_id", userId);
+
+  return { data, error };
+}
+
+export async function deleteReminderById(reminderId: string, userId: string) {
+  const { error } = await supabaseClient
+    .from("reminders")
+    .delete()
+    .eq("id", reminderId)
+    .eq("user_id", userId);
+
+  return { error };
 }

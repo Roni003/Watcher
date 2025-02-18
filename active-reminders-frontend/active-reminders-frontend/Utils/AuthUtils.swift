@@ -12,6 +12,7 @@ let SERVER_URL = "http://localhost:3000/api"
 func getAuthToken() async -> String? {
     do {
         let token = try await supabase.auth.session.accessToken
+      print(token)
         return token
     } catch {
         print("Error getting access token: \(error)")
