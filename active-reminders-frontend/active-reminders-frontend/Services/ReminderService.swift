@@ -24,7 +24,7 @@ func fetchReminders() async throws -> [Reminder] {
   let (data, response) = try await URLSession.shared.data(for: request)
   
   if let jsonString = String(data: data, encoding: .utf8) {
-//    print("Raw JSON response: \(jsonString)")
+    print("Raw JSON response: \(jsonString)")
   }
   
   guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -32,6 +32,6 @@ func fetchReminders() async throws -> [Reminder] {
   }
   
   let decoder = JSONDecoder()
-  decoder.dateDecodingStrategy = .iso8601 // Fixes Date decoding issue ? hopefullys
+  decoder.dateDecodingStrategy = .iso8601 // Fixes Date decoding issue ? hopefully
   return try decoder.decode([Reminder].self, from: data)
 }
