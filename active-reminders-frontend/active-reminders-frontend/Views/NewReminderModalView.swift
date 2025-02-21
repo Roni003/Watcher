@@ -10,6 +10,11 @@ import SwiftUI
 
 struct NewReminderModalView: View {
   @Environment(\.dismiss) var dismiss
+  var onReminderCreated: () -> Void
+  
+  init(onReminderCreated: @escaping () -> Void) {
+    self.onReminderCreated = onReminderCreated
+  }
   
   @State private var showAlert = false
   @State private var alertTitle: String = ""
@@ -133,8 +138,8 @@ struct NewReminderModalView: View {
             .frame(maxHeight: 200)
           }
         }
-    
       }
+      
       // Spacer to push trigger list up top
       Spacer()
     }
@@ -142,10 +147,22 @@ struct NewReminderModalView: View {
   }
   
   func handleCreate() {
-    let description = self.description
-    let trigger = selectedTrigger
-    
-    print(description, trigger, selectedTrainLine)
+    Task {
+      do {
+        let success = try await createReminder(
+          description: description,
+          trigger: selectedTrigger,
+          trainLine: selectedTrainLine
+        )
+        
+        await MainActor.run {
+          if success {
+            onReminderCreated()
+            dismiss()
+          }
+        }
+      }
+    }
   }
   
   func validate() -> Bool {

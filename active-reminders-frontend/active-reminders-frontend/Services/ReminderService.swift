@@ -58,3 +58,31 @@ func deleteReminder(_ id: String) async throws {
   }
 }
 
+func createReminder(description: String, trigger: TriggerType? = nil, trainLine: TrainLine? = nil) async throws -> Bool {
+  guard let url = URL(string: "\(SERVER_URL)/reminders") else {
+    throw URLError(.badURL)
+  }
+  
+  // Create the request with the correct format
+  let requestData = CreateReminderRequest(
+    description: description,
+    triggerType: trigger,
+    trainLine: trainLine
+  )
+  
+  var request = URLRequest(url: url)
+  request.httpMethod = "POST"
+  request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+  request.setValue(await getAuthToken(), forHTTPHeaderField: AUTH_TOKEN_HEADER_KEY)
+  
+  let encoder = JSONEncoder()
+  request.httpBody = try encoder.encode(requestData)
+  
+  let (_, response) = try await URLSession.shared.data(for: request)
+  
+  guard let httpResponse = response as? HTTPURLResponse else {
+    throw URLError(.badServerResponse)
+  }
+  
+  return httpResponse.statusCode == 201 || httpResponse.statusCode == 200
+  }

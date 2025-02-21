@@ -18,7 +18,7 @@ struct DashboardView: View {
     VStack() {
       ReminderListView(reminders: self.reminders, onDelete: {
         Task {
-          await self.loadReminders()
+          await loadReminders()
         }
       })
       HStack {
@@ -40,11 +40,17 @@ struct DashboardView: View {
           }
       }
     })
-    .task {
-      await loadReminders()
+    .onAppear {
+      Task {
+        await loadReminders()
+      }
     }
     .sheet(isPresented: $showModal) { // Show modal when showModal is true
-      NewReminderModalView()
+      NewReminderModalView(onReminderCreated: {
+        Task {
+          await loadReminders()
+        }
+      })
     }
   }
     

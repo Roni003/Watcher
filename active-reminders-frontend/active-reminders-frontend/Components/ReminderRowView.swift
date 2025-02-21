@@ -14,7 +14,9 @@ struct ReminderRowView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text(reminder.description)
+      if reminder.description != "" {
+        Text(reminder.description)
+      }
       if reminder.trigger != nil {
         HStack {
           Image(systemName: reminder.trigger!.iconName)
@@ -28,17 +30,16 @@ struct ReminderRowView: View {
     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
     .swipeActions() {
       Button("Delete", systemImage: "trash") {
-        deleteReminder(reminder)
-        onDelete()
+        Task {
+          do {
+            try await deleteReminder(reminder.id)
+            onDelete()  // Refresh only after deletion completes
+          } catch {
+            print("Error deleting reminder: \(error.localizedDescription)")
+          }
+        }
       }
       .tint(.red)
     }
-  }
-}
-
-func deleteReminder(_ reminder: Reminder) {
-  print("Deleting reminder \(reminder.id)...")
-  Task {
-    try await deleteReminder(reminder.id)
   }
 }
