@@ -10,6 +10,8 @@ import SwiftUI
 
 struct DashboardView: View {
   @State var reminders: [Reminder] = []
+  @State private var showModal = false // State variable to control modal visibility
+  
   private var newReminderButtonFontSize = 24
   
   var body: some View {
@@ -22,7 +24,11 @@ struct DashboardView: View {
       HStack {
         Image(systemName: "plus.app.fill")
         Text("Create new reminder")
-      }          .font(.system(size: CGFloat(newReminderButtonFontSize)))
+      }
+      .onTapGesture {
+        showModal.toggle()
+      }
+      .font(.system(size: CGFloat(newReminderButtonFontSize)))
     }
     .padding(2)
     .navigationTitle("Dashboard")
@@ -36,6 +42,9 @@ struct DashboardView: View {
     })
     .task {
       await loadReminders()
+    }
+    .sheet(isPresented: $showModal) { // Show modal when showModal is true
+      NewReminderModalView()
     }
   }
     
