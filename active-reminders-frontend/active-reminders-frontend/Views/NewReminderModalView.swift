@@ -11,27 +11,30 @@ import SwiftUI
 struct NewReminderModalView: View {
   @Environment(\.dismiss) var dismiss
   
-  // State to store the description and trigger selections
   @State private var description: String = ""
-  @State private var isBadWeather: Bool = false
-  @State private var isHighTraffic: Bool = false
-  @State private var isTFLDelays: Bool = false
-  @State private var isGroceryStoreNearby: Bool = false
-  @State private var isDrugStoreNearby: Bool = false
-  @State private var isCustomLocation: Bool = false
+  @State private var selectedTrigger: TriggerType? = nil  // Track the selected trigger
+  @State private var showAlert = false
   
-//  private var color = "#303031"
-//  private var backgroundColor = "#1C1C1E"
-  private var toggleBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
+  private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
   private var backgroundColor = Color(UIColor(hexCode: "#1C1C1E", alpha: 1))
-  private var togglePadding = 10
-  private var toggleCornerRadius = 8
+  private var inputBoxPadding = 10
+  private var inputBoxCornerRadius = 8
+  
+  // Add all trigger types in the order you want them displayed
+  private let triggerTypes: [TriggerType] = [
+    .weather,
+    .traffic,
+    .tfl,
+    .groceryStore,
+    .pharmacy,
+    .customLocation
+  ]
   
   var body: some View {
     VStack(spacing: 20) {
       HStack {
         Button(action: {
-          dismiss() // Dismiss modal
+          dismiss()
         }) {
           HStack {
             Image(systemName: "chevron.backward")
@@ -44,20 +47,28 @@ struct NewReminderModalView: View {
         Spacer()
         
         Button("Create") {
-          // Create reminder logic (add logic here)
-          dismiss() // Dismiss modal after creating
+          handleCreate()
+          if(validate()) {
+            dismiss()
+          } else {
+            showAlert = true
+          }
         }
         .foregroundColor(.blue)
         .font(.headline)
+        .alert(isPresented: $showAlert) {
+          Alert(
+            title: Text("A reminder must have a description or a trigger!"),
+            dismissButton: .default(Text("OK"))
+          )
+        }
       }
 
       TextField("Description", text: $description)
-        .padding(10)
-        .background(toggleBackgroundColor)
-        .cornerRadius(CGFloat(toggleCornerRadius))
+        .padding(CGFloat(inputBoxPadding))
+        .background(inputBoxBackgroundColor)
+        .cornerRadius(CGFloat(inputBoxCornerRadius))
         .bold()
-//        .textFieldStyle(RoundedBorderTextFieldStyle())
-
       
       // -----------------------
       // |      TRIGGERS       |
@@ -68,65 +79,36 @@ struct NewReminderModalView: View {
           .font(.headline)
           .bold()
         
-        Section {
-          Toggle(isOn: $isBadWeather) {
-            HStack {
-              Image(systemName: TriggerType.weather.iconName)
-              Text(TriggerType.weather.displayText)
+        ForEach(triggerTypes, id: \.self) { triggerType in
+          TriggerToggleView(
+            triggerType: triggerType,
+            isSelected: selectedTrigger == triggerType,
+            onSelect: {
+              // Toggle selection
+              if selectedTrigger == triggerType {
+                selectedTrigger = nil
+              } else {
+                selectedTrigger = triggerType
+              }
             }
-          }
-          .toggleStyle(SwitchToggleStyle(tint: .green))
-          .bold()
+          )
         }
-        .padding(CGFloat(self.togglePadding))
-        .background(toggleBackgroundColor)
-        .cornerRadius(CGFloat(self.toggleCornerRadius))
-        
-        Section {
-          Toggle(isOn: $isHighTraffic) {
-            HStack {
-              Image(systemName: TriggerType.traffic.iconName)
-              Text(TriggerType.traffic.displayText)
-            }
-          }
-          .toggleStyle(SwitchToggleStyle(tint: .green))
-          .bold()
-        }
-        .padding(CGFloat(self.togglePadding))
-        .background(toggleBackgroundColor)
-        .cornerRadius(CGFloat(self.toggleCornerRadius))
-        
-        Section {
-          Toggle(isOn: $isTFLDelays) {
-            HStack {
-              Image(systemName: TriggerType.tfl.iconName)
-              Text(TriggerType.tfl.displayText)
-            }
-          }
-          .toggleStyle(SwitchToggleStyle(tint: .green))
-          .bold()
-        }
-        .padding(CGFloat(self.togglePadding))
-        .background(toggleBackgroundColor)
-        .cornerRadius(CGFloat(self.toggleCornerRadius))
-        
-        Section {
-          Toggle(isOn: $isGroceryStoreNearby) {
-            HStack {
-              Image(systemName: TriggerType.groceryStore.iconName)
-              Text(TriggerType.groceryStore.displayText)
-            }
-          }
-          .toggleStyle(SwitchToggleStyle(tint: .green))
-          .bold()
-        }
-        .padding(CGFloat(self.togglePadding))
-        .background(toggleBackgroundColor)
-        .cornerRadius(CGFloat(self.toggleCornerRadius))
+    
       }
       // Spacer to push trigger list up top
       Spacer()
     }
     .padding()
+  }
+  
+  func handleCreate() {
+    let description = self.description
+    let trigger = selectedTrigger
+    
+    print(description, trigger)
+  }
+  
+  func validate() -> Bool {
+    return self.description != "" || (selectedTrigger != nil)
   }
 }
