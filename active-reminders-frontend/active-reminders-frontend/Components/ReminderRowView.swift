@@ -12,16 +12,18 @@ struct ReminderRowView: View {
   var reminder: Reminder
   
   var body: some View {
-    VStack {
+    VStack(alignment: .leading) {
       Text(reminder.description)
       if reminder.trigger != nil {
         HStack {
           Image(systemName: reminder.trigger!.iconName)
           Text(reminder.trigger!.displayText)
+            .foregroundStyle(.gray)
+            .bold()
         }
       }
     }
-    .padding(8.0)
+    .padding(6.0)
     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
     .swipeActions() {
       Button("Delete", systemImage: "trash") {
