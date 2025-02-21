@@ -22,7 +22,7 @@ struct NewReminderModalView: View {
   @State private var selectedTrigger: TriggerType? = nil  // Track the selected trigger
   @State private var selectedTrainLine: TrainLine? = nil // Track the TFL line if TFL trigger is selected.
   
-  private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
+  var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
   private var backgroundColor = Color(UIColor(hexCode: "#1C1C1E", alpha: 1))
   private var inputBoxPadding = 10
   private var inputBoxCornerRadius = 8
