@@ -10,6 +10,7 @@ import Foundation
 
 struct ReminderRowView: View {
   var reminder: Reminder
+  var onDelete: () -> Void
   
   var body: some View {
     VStack(alignment: .leading) {
@@ -28,6 +29,7 @@ struct ReminderRowView: View {
     .swipeActions() {
       Button("Delete", systemImage: "trash") {
         deleteReminder(reminder)
+        onDelete()
       }
       .tint(.red)
     }

@@ -13,7 +13,11 @@ struct DashboardView: View {
   
   var body: some View {
     VStack(spacing: 20) {
-      ReminderListView(reminders: self.reminders)
+      ReminderListView(reminders: self.reminders, onDelete: {
+        Task {
+          await self.loadReminders()
+        }
+      })
     }
     .padding()
     .navigationTitle("Dashboard")
