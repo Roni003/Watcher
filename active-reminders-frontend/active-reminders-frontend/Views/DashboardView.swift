@@ -10,16 +10,21 @@ import SwiftUI
 
 struct DashboardView: View {
   @State var reminders: [Reminder] = []
+  private var newReminderButtonFontSize = 24
   
   var body: some View {
-    VStack(spacing: 20) {
+    VStack() {
       ReminderListView(reminders: self.reminders, onDelete: {
         Task {
           await self.loadReminders()
         }
       })
+      HStack {
+        Image(systemName: "plus.app.fill")
+        Text("Create new reminder")
+      }          .font(.system(size: CGFloat(newReminderButtonFontSize)))
     }
-    .padding()
+    .padding(2)
     .navigationTitle("Dashboard")
     .toolbar(content: {
         ToolbarItem(placement: .topBarTrailing){
