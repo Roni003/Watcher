@@ -11,9 +11,11 @@ import SwiftUI
 struct NewReminderModalView: View {
   @Environment(\.dismiss) var dismiss
   
+  @State private var showAlert = false
+  @State private var alertTitle: String = ""
   @State private var description: String = ""
   @State private var selectedTrigger: TriggerType? = nil  // Track the selected trigger
-  @State private var showAlert = false
+  @State private var selectedTrainLine: TrainLine? = nil // Track the TFL line if TFL trigger is selected.
   
   private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
   private var backgroundColor = Color(UIColor(hexCode: "#1C1C1E", alpha: 1))
@@ -58,7 +60,7 @@ struct NewReminderModalView: View {
         .font(.headline)
         .alert(isPresented: $showAlert) {
           Alert(
-            title: Text("A reminder must have a description or a trigger!"),
+            title: Text(alertTitle),
             dismissButton: .default(Text("OK"))
           )
         }
@@ -84,7 +86,6 @@ struct NewReminderModalView: View {
             triggerType: triggerType,
             isSelected: selectedTrigger == triggerType,
             onSelect: {
-              // Toggle selection
               if selectedTrigger == triggerType {
                 selectedTrigger = nil
               } else {
@@ -92,6 +93,45 @@ struct NewReminderModalView: View {
               }
             }
           )
+        }
+        
+        if selectedTrigger == .tfl {
+          VStack(alignment: .leading, spacing: 8) {
+            Text("Select Train Line")
+              .font(.headline)
+              .bold()
+              .padding(.top, 12)
+            
+            ScrollView(.vertical, showsIndicators: true) {
+              VStack(spacing: 8) {
+                ForEach(TrainLine.allCases, id: \.self) { trainLine in
+                  Button(action: {
+                    selectedTrainLine = selectedTrainLine == trainLine ? nil : trainLine
+                  }) {
+                    HStack {
+                      Circle()
+                        .fill(trainLine.color)
+                        .frame(width: 12, height: 12)
+                      
+                      Text(trainLine.rawValue)
+                        .foregroundColor(.primary)
+                      
+                      Spacer()
+                      
+                      if selectedTrainLine == trainLine {
+                        Image(systemName: "checkmark")
+                          .foregroundColor(.blue)
+                      }
+                    }
+                    .padding(CGFloat(inputBoxPadding))
+                    .background(inputBoxBackgroundColor)
+                    .cornerRadius(CGFloat(inputBoxCornerRadius))
+                  }
+                }
+              }
+            }
+            .frame(maxHeight: 200)
+          }
         }
     
       }
@@ -105,10 +145,20 @@ struct NewReminderModalView: View {
     let description = self.description
     let trigger = selectedTrigger
     
-    print(description, trigger)
+    print(description, trigger, selectedTrainLine)
   }
   
   func validate() -> Bool {
-    return self.description != "" || (selectedTrigger != nil)
+    if (self.selectedTrigger == TriggerType.tfl && self.selectedTrainLine == nil) {
+      alertTitle = "A TFL reminder must have a train line selected!"
+      return false
+    }
+    
+    if (self.description != "" || selectedTrigger != nil) {
+      return true
+    } else {
+      self.alertTitle = "A reminder must have a description or a trigger!"
+      return false
+    }
   }
 }
