@@ -64,6 +64,7 @@ struct SettingsView: View {
             try? await supabase.auth.signOut()
           }
         }
+        .bold()
         .foregroundColor(.red)
       }
     })

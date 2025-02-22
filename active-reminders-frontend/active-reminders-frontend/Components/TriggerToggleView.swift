@@ -36,6 +36,8 @@ struct TriggerToggleView: View {
       .padding(CGFloat(togglePadding))
       .background(toggleBackgroundColor)
       .cornerRadius(CGFloat(toggleCornerRadius))
+      .shadow(radius: 2)
+      .bold()
     }
   }
 }

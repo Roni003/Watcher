@@ -28,6 +28,7 @@ struct ReminderRowView: View {
     }
     .padding(6.0)
     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+    .shadow(radius: 0.5)
     .swipeActions() {
       Button("Delete", systemImage: "trash") {
         Task {
