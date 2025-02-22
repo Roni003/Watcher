@@ -13,6 +13,9 @@ struct SettingsView: View {
   @State private var fetchIntervalString: String = ""
   @State private var email: String = ""
   
+  private var defaultRadius = 200
+  private var defaultInterval = 30 // 30 seconds
+  
   private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
 
 
@@ -96,7 +99,15 @@ struct SettingsView: View {
   }
   
   func updateSettings() async {
-      
+    let radius: Int = Int(self.radiusString) ?? defaultRadius
+    let fetchInterval: Int = Int(self.fetchIntervalString) ?? defaultInterval
+    
+    let patchRequest = PatchUserRequest(radius: radius, fetch_interval: fetchInterval)
+    
+    Task {
+      let req = try await patchUser(updatedBody: patchRequest)
+      print(req)
+    }
   }
 }
 
