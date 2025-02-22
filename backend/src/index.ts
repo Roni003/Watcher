@@ -3,6 +3,7 @@ import morgan from "morgan";
 
 import config from "./config/config";
 import reminderRoutes from "./routes/reminders";
+import userRoutes from "./routes/user";
 import { authMiddleware } from "./middleware/auth";
 
 const app: express.Application = express();
@@ -23,6 +24,7 @@ app.use(authMiddleware);
 
 // ### Routes ###
 app.use("/api/reminders", reminderRoutes);
+app.use("/api/users", userRoutes);
 
 app.use((req: Request, res: Response) => {
   res.status(404).send("Route not found");
