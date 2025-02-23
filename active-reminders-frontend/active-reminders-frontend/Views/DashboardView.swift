@@ -12,7 +12,7 @@ struct DashboardView: View {
   @State var reminders: [Reminder] = []
   @State private var showModal = false // State variable to control modal visibility
   
-  private var newReminderButtonFontSize = 24
+  private var newReminderButtonFontSize = 22
   
   var body: some View {
     VStack() {
@@ -23,12 +23,15 @@ struct DashboardView: View {
       })
       HStack {
         Image(systemName: "plus.app.fill")
+          .font(.system(size: CGFloat(newReminderButtonFontSize + 4)))
         Text("Create new reminder")
+          .font(.system(size: CGFloat(newReminderButtonFontSize)))
+
       }
       .onTapGesture {
         showModal.toggle()
       }
-      .font(.system(size: CGFloat(newReminderButtonFontSize)))
+      .bold()
     }
     .padding(2)
     .navigationTitle("Dashboard")
