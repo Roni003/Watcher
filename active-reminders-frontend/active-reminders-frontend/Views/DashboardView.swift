@@ -11,7 +11,8 @@ import SwiftUI
 struct DashboardView: View {
   @State var reminders: [Reminder] = []
   @State private var showModal = false // State variable to control modal visibility
-  
+  private var locationManager = LocationManagerModel()
+
   private var newReminderButtonFontSize = 22
   
   var body: some View {
@@ -44,8 +45,13 @@ struct DashboardView: View {
       }
     })
     .onAppear {
+      self.locationManager.checkLocationServices()
       Task {
         await loadReminders()
+        let location = self.locationManager.getLocation()
+        if (location != nil) {
+          sendTriggerCheck(location: location!)
+        }
       }
     }
     .sheet(isPresented: $showModal) { // Show modal when showModal is true

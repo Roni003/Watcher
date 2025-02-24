@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreLocation
 
 struct AppView: View {
   @State var isAuthenticated = false

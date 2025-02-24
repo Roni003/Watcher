@@ -85,4 +85,8 @@ func createReminder(description: String, trigger: TriggerType? = nil, trainLine:
   }
   
   return httpResponse.statusCode == 201 || httpResponse.statusCode == 200
-  }
+}
+
+func sendTriggerCheck(location: Location) {
+  print(location)
+}
