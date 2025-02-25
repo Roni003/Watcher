@@ -1,8 +1,7 @@
 import { expect, jest, test } from "@jest/globals";
-import { getNearbyLocations } from "../../utils/maps";
 import { fetchWeatherInfo } from "../../services/weather-service";
-import exp from "constants";
 
+// London coordinates
 const location = {
   lat: 51.5049,
   lon: 0.126,
@@ -10,7 +9,7 @@ const location = {
 
 test("Check weather", async () => {
   const { data, error } = await fetchWeatherInfo(location);
-  expect(error).toBeNull;
+  expect(error).toBeNull();
   expect(data?.coord.lat).toBe(location.lat);
   expect(data?.coord.lon).toBe(location.lon);
   expect(data?.sys.country).toBe("GB");

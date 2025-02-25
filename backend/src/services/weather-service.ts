@@ -19,7 +19,10 @@ export async function fetchWeatherInfo(
   try {
     const res = await fetch(url);
     const json = await res.json();
-    return { data: json, error: json.error };
+    if (json.cod !== 200) {
+      throw new Error(json.message);
+    }
+    return { data: json, error: null };
   } catch (error) {
     return { error };
   }
