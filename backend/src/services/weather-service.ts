@@ -1,5 +1,6 @@
 import config from "../config/config";
 import { ILocation } from "../interfaces/location-interface";
+import { IWeatherData } from "../interfaces/requests/ow-response-interface";
 // jest.setup.js
 require("dotenv").config("../../../.env");
 
@@ -10,16 +11,16 @@ require("dotenv").config("../../../.env");
  */
 export async function fetchWeatherInfo(
   location: ILocation
-): Promise<{ data: any; error: any }> {
+): Promise<{ data?: IWeatherData; error: any }> {
   const { lat, lon } = location;
   const OW_API_KEY = config.openweatherKey;
   const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${OW_API_KEY}`;
 
   try {
     const res = await fetch(url);
-    const data = await res.json();
-    return { data, error: null };
+    const json = await res.json();
+    return { data: json, error: json.error };
   } catch (error) {
-    return { data: null, error };
+    return { error };
   }
 }
