@@ -89,9 +89,7 @@ export async function checkReminderTriggers(req: Request, res: Response) {
     return;
   }
 
-  res.json({ reminders: [] });
+  console.log(location);
+
+  res.json({ reminders });
 }
-// Take location from request header or query string
-// Check if location is valid
-// Fetch all reminders from database
-// check proximity and trigger conditions

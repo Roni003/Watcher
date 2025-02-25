@@ -1,8 +1,10 @@
+import "dotenv/config";
 interface Config {
   port: number;
   environment: "dev" | "prod";
   supabaseKey: string;
   supabaseURL: string;
+  openweatherKey: string;
 }
 
 const config: Config = {
@@ -10,6 +12,7 @@ const config: Config = {
   environment: "dev",
   supabaseKey: process.env.SUPABASE_KEY || "",
   supabaseURL: process.env.SUPABASE_URL || "",
+  openweatherKey: process.env.OPENWEATHER_KEY || "",
 };
 
 export default config;
