@@ -7,7 +7,7 @@ require("dotenv").config("../../../.env");
 /**
  *
  * @param {ILocation} location - location to get weather info about
- * @returns {Promise} - fetch request that returns weather information
+ * @returns {Promise} fetch request that returns weather information
  */
 export async function fetchWeatherInfo(
   location: ILocation

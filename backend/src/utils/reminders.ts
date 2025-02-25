@@ -1,6 +1,8 @@
 import { ILocation } from "../interfaces/location-interface";
 import { IReminder } from "../interfaces/reminder-interface";
 import { TriggerType } from "../interfaces/trigger-interface";
+import { fetchWeatherInfo } from "../services/weather-service";
+import { isBadWeather } from "./weather";
 
 /**
  *
@@ -22,7 +24,24 @@ export async function getRemindersToTrigger(
 
     switch (reminder.trigger) {
       case TriggerType.WEATHER:
-        out.push({ reminder, message: "Weather reminder, bad weather" });
+        const { data, error } = await fetchWeatherInfo(location);
+        if (error) {
+          console.error("[Error fetching weather]", error);
+          continue;
+        }
+
+        const weatherCondition = data?.weather[0].main;
+        let message =
+          data?.weather[0].description || "No description available";
+        if (message && data?.name) {
+          message += ` in ${data.name}`;
+        }
+        if (weatherCondition && isBadWeather(weatherCondition)) {
+          out.push({
+            reminder,
+            message,
+          });
+        }
       case TriggerType.TFL:
       // Check TFL
       case TriggerType.TRAFFIC:
