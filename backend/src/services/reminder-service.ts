@@ -2,7 +2,10 @@ import { IReminder, ReminderMetadata } from "../interfaces/reminder-interface";
 import { TriggerType } from "../interfaces/trigger-interface";
 import supabaseClient from "./supabase";
 
-export async function getRemindersForUser(userId: string) {
+export async function getRemindersForUser(userId: string): Promise<{
+  data: IReminder[] | null;
+  error: Error | null;
+}> {
   const { data, error } = await supabaseClient
     .from("reminders")
     .select("*")
@@ -11,7 +14,10 @@ export async function getRemindersForUser(userId: string) {
   return { data, error };
 }
 
-export async function getRemindersById(reminderId: string, userId: string) {
+export async function getRemindersById(
+  reminderId: string,
+  userId: string
+): Promise<{ data: IReminder[] | null; error: Error | null }> {
   const { data, error } = await supabaseClient
     .from("reminders")
     .select("*")

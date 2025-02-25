@@ -6,6 +6,7 @@ import {
   createNewReminder,
 } from "../services/reminder-service";
 import { IReminder } from "../interfaces/reminder-interface";
+import { getRemindersToTrigger } from "../utils/reminders";
 
 export async function getReminders(req: Request, res: Response) {
   try {
@@ -89,7 +90,12 @@ export async function checkReminderTriggers(req: Request, res: Response) {
     return;
   }
 
-  console.log(location);
+  if (!reminders) {
+    res.status(200).json([]);
+    return;
+  }
 
-  res.json({ reminders });
+  const filteredReminders = await getRemindersToTrigger(reminders, location);
+
+  res.json({ reminders: filteredReminders });
 }
