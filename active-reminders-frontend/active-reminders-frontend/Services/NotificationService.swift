@@ -8,12 +8,15 @@
 import Foundation
 import UserNotifications
 
-func sendNotificationForReminder(reminder: Reminder) {
+func sendNotificationForReminder(reminderMessagePair: ReminderMessagePair) {
+  let reminder = reminderMessagePair.reminder
+  let message = reminderMessagePair.message
+  
   print("Notification for reminder: \(reminder.description) sent")
   let content = UNMutableNotificationContent()
   
-  content.title = "Active Reminders"
-  content.body = "\(reminder.description) - \(reminder.trigger?.displayText ?? "")"
+  content.title = "\(reminder.description)"
+  content.body = "\(reminder.trigger?.displayText ?? "") - \(message)"
   
   content.sound = .default
   

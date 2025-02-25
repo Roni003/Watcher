@@ -8,5 +8,10 @@
 import Foundation
 
 struct TriggerCheckRespone: Codable {
-  var reminders: [Reminder]
+  var reminders: [ReminderMessagePair]
+}
+
+struct ReminderMessagePair: Codable {
+  var reminder: Reminder
+  var message: String
 }

@@ -7,15 +7,15 @@
 
 import Foundation
 
-func triggerReminders(reminders: [Reminder]) {
-  for reminder in reminders {
-    triggerReminder(reminder: reminder)
+func triggerReminders(reminderMessagePairs: [ReminderMessagePair]) {
+  for reminder in reminderMessagePairs {
+    triggerReminder(reminderMessagePair: reminder)
   }
 }
 
-private func triggerReminder(reminder: Reminder) {
-  sendNotificationForReminder(reminder: reminder)
+private func triggerReminder(reminderMessagePair: ReminderMessagePair) {
+  sendNotificationForReminder(reminderMessagePair: reminderMessagePair)
   Task {
-//    try await deleteReminder(reminder.id)
+//    try await deleteReminder(reminderMessagePair.reminder.id) TODO: uncomment after testing
   }
 }

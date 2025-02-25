@@ -76,15 +76,15 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
             triggerCheckRequest: TriggerCheckRequest(location: location!)
           )
           
-          let reminders = triggeredReminders.reminders
+          let reminderMessagePairs: [ReminderMessagePair] = triggeredReminders.reminders
           
-          if !reminders.isEmpty {
+          if !reminderMessagePairs.isEmpty {
             DispatchQueue.main.async {
-              triggerReminders(reminders: reminders)
+              triggerReminders(reminderMessagePairs: reminderMessagePairs)
             }
           }
           
-          print("Location check completed with \(reminders.count) triggered reminders")
+          print("Location check completed with \(reminderMessagePairs.count) triggered reminders")
         } catch {
           print("Error checking location triggers: \(error.localizedDescription)")
         }
