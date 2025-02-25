@@ -45,7 +45,6 @@ struct DashboardView: View {
       }
     })
     .onAppear {
-      self.locationManager.checkLocationServices()
       Task {
         await loadReminders()
         let location = self.locationManager.getLocation()

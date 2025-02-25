@@ -11,7 +11,8 @@ import CoreLocation
 final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
   var locationManager = CLLocationManager()
   
-  func checkLocationServices() {
+  override init() {
+    super.init()
     locationManager.delegate = self
     checkLocationAuthorization()
   }
@@ -28,7 +29,7 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
     }
   }
   
-  func getLocation() -> Location? {
+  public func getLocation() -> Location? {
     if (self.locationManager.location == nil) {
       return nil
     }
