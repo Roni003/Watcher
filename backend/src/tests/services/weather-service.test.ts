@@ -1,6 +1,5 @@
 import { expect, jest, test } from "@jest/globals";
 import { fetchWeatherInfo } from "../../services/weather-service";
-import exp from "constants";
 
 // London coordinates
 const location = {

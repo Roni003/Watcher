@@ -5,6 +5,7 @@ interface Config {
   supabaseKey: string;
   supabaseURL: string;
   openweatherKey: string;
+  tflKey: string;
 }
 
 const config: Config = {
@@ -13,6 +14,7 @@ const config: Config = {
   supabaseKey: process.env.SUPABASE_KEY || "",
   supabaseURL: process.env.SUPABASE_URL || "",
   openweatherKey: process.env.OPENWEATHER_KEY || "",
+  tflKey: process.env.TFL_KEY || "",
 };
 
 export default config;
