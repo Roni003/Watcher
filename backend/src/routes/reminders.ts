@@ -3,6 +3,7 @@ import {
   getReminders,
   deleteReminder,
   createReminder,
+  checkReminderTriggers,
 } from "../controllers/reminders";
 
 const router: Router = Router();
@@ -20,11 +21,6 @@ router.delete("/:id", deleteReminder);
 router.put("/:id", (req: Request, res: Response) => {});
 
 // Check if reminders should be triggered
-router.get("/triggercheck", (req: Request, res: Response) => {
-  // Take location from request header or query string
-  // Check if location is valid
-  // Fetch all reminders from database
-  // check proximity and trigger conditions
-});
+router.post("/triggercheck", checkReminderTriggers);
 
 export default router;

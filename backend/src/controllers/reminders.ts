@@ -74,3 +74,24 @@ export async function deleteReminder(req: Request, res: Response) {
 
   res.send({ message: "Reminder deleted successfully", reminderId });
 }
+
+export async function checkReminderTriggers(req: Request, res: Response) {
+  if (!req.body.location) {
+    res.status(400).json({ error: "Location is required" });
+    return;
+  }
+
+  const { location } = req.body;
+
+  const { data: reminders, error } = await getRemindersForUser(req.user.id);
+  if (error) {
+    res.status(500).json({ error: "Error getting reminders" });
+    return;
+  }
+
+  res.json({ reminders: [] });
+}
+// Take location from request header or query string
+// Check if location is valid
+// Fetch all reminders from database
+// check proximity and trigger conditions
