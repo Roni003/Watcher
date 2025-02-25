@@ -1,7 +1,13 @@
 import { ILocation } from "../interfaces/location-interface";
-import { IReminder } from "../interfaces/reminder-interface";
+import {
+  IReminder,
+  ReminderMetadata,
+  TflMetadata,
+} from "../interfaces/reminder-interface";
 import { TriggerType } from "../interfaces/trigger-interface";
+import { fetchTFLInfo } from "../services/tfl-service";
 import { fetchWeatherInfo } from "../services/weather-service";
+import { doesLineHaveGoodService } from "./tfl";
 import { isBadWeather } from "./weather";
 
 /**
@@ -31,25 +37,59 @@ export async function getRemindersToTrigger(
         }
 
         const weatherCondition = data?.weather[0].main;
-        let message =
+        let weatherMessage =
           data?.weather[0].description || "No description available";
-        if (message && data?.name) {
-          message += ` in ${data.name}`;
+        if (weatherMessage && data?.name) {
+          weatherMessage += ` in ${data.name}`;
         }
         if (weatherCondition && isBadWeather(weatherCondition)) {
           out.push({
             reminder,
-            message,
+            message: weatherMessage,
           });
         }
+        break;
       case TriggerType.TFL:
-      // Check TFL
+        if (!reminder.metadata) {
+          console.log("No metadata specified for TFL reminder, skipping");
+          continue;
+        }
+
+        const metadata = reminder.metadata as TflMetadata;
+        if ((metadata as TflMetadata).line == undefined) {
+          console.log("No line specified for TFL reminder, skipping");
+          continue;
+        }
+
+        const line = (metadata as TflMetadata).line;
+        const { data: tflData, error: tflError } = await fetchTFLInfo(line);
+        if (tflError || !tflData?.lineStatuses) {
+          console.error("[Error fetching TFL info]", tflError);
+          continue;
+        }
+
+        const stasus = tflData?.lineStatuses[0];
+        const message = `${stasus.statusSeverityDescription} on ${tflData.name} line`;
+
+        if (doesLineHaveGoodService(tflData)) {
+          continue;
+        }
+
+        // Only push those with bad service
+        out.push({
+          reminder,
+          message,
+        });
+        break;
       case TriggerType.TRAFFIC:
-      // Check traffic
+        // Check traffic
+        break;
       case TriggerType.GROCERY:
-      // Check grocery
+        // Check grocery
+        break;
       case TriggerType.PHARMACY:
-      // Check pharmacy
+        // Check pharmacy
+        break;
       case TriggerType.CUSTOMLOCATION:
       // Check custom location
       default:

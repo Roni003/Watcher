@@ -10,7 +10,7 @@ export interface TflMetadata {
 }
 
 // Union type for all possible metadata
-export type ReminderMetadata = CustomLocationMetadata | TflMetadata;
+export type ReminderMetadata = CustomLocationMetadata | TflMetadata | {};
 
 export interface IReminder {
   id: string;
@@ -19,5 +19,5 @@ export interface IReminder {
   created_at: string;
   updated_at?: string;
   trigger?: TriggerType;
-  metadata?: ReminderMetadata;
+  metadata?: ReminderMetadata; // JSON stringified metadata
 }

@@ -34,15 +34,15 @@ export async function createNewReminder(
   // Validate metadata based on trigger type
   // TODO: Refactor this to use a more generic approach
   if (reminderData.trigger) {
-    console.log(reminderData.metadata);
-    if (
-      reminderData.trigger === TriggerType.CUSTOMLOCATION &&
-      (!reminderData.metadata || !("location" in reminderData.metadata))
-    ) {
-      return {
-        error: new Error("Invalid metadata for CUSTOMLOCATION trigger"),
-      };
-    }
+    console.log("Metadata: ", reminderData.metadata);
+    // if (
+    // reminderData.trigger === TriggerType.CUSTOMLOCATION &&
+    // (!reminderData.metadata || !("location" in reminderData.metadata))
+    // ) {
+    // return {
+    // error: new Error("Invalid metadata for CUSTOMLOCATION trigger"),
+    // };
+    // }
     if (
       reminderData.trigger === TriggerType.TFL &&
       (!reminderData.metadata || !("line" in reminderData.metadata))
