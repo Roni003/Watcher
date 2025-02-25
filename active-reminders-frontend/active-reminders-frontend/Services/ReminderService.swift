@@ -87,6 +87,29 @@ func createReminder(description: String, trigger: TriggerType? = nil, trainLine:
   return httpResponse.statusCode == 201 || httpResponse.statusCode == 200
 }
 
-func sendTriggerCheck(location: Location) {
-  print(location)
+func sendTriggerCheck(triggerCheckRequest: TriggerCheckRequest) async throws -> TriggerCheckRespone {
+  guard let url = URL(string: "\(SERVER_URL)/reminders/triggercheck") else {
+    throw URLError(.badURL)
+  }
+  
+  var request = URLRequest(url: url)
+  request.httpMethod = "POST"
+  request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+  request.setValue(await getAuthToken(), forHTTPHeaderField: AUTH_TOKEN_HEADER_KEY)
+  
+  request.httpBody = try JSONEncoder().encode(triggerCheckRequest)
+  
+  let (data, response) = try await URLSession.shared.data(for: request)
+  
+  guard let httpResponse = response as? HTTPURLResponse else {
+    throw URLError(.badServerResponse)
+  }
+  
+  if httpResponse.statusCode != 200 {
+    throw URLError(.badServerResponse)
+  }
+  
+  let decoder = JSONDecoder()
+  decoder.dateDecodingStrategy = .iso8601 // Fixes Date decoding issue ? hopefully
+  return try decoder.decode(TriggerCheckRespone.self, from: data)
 }

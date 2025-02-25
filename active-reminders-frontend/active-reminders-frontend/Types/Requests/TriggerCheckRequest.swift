@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct TriggerCheckRespone: Codable {
-  var reminders: [Reminder]
+struct TriggerCheckRequest: Codable {
+  let location: Location
 }

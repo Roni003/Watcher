@@ -50,7 +50,10 @@ struct DashboardView: View {
         await loadReminders()
         let location = self.locationManager.getLocation()
         if (location != nil) {
-          sendTriggerCheck(location: location!)
+          let triggeredReminders = try await sendTriggerCheck(triggerCheckRequest: TriggerCheckRequest(location: location!))
+          for r in triggeredReminders.reminders {
+            print(r.id)
+          }
         }
       }
     }
