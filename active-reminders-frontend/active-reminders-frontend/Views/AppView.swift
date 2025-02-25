@@ -22,6 +22,18 @@ struct AppView: View {
         AuthView()
       }
     }
+    .onAppear {
+      UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        if let error = error {
+          print("Notification authorization error: \(error)")
+        }
+        if granted {
+          print("Use accepted notification permissions.")
+        } else {
+          print("User denied notification permissions.")
+        }
+      }
+    }
     .task {
       for await state in supabase.auth.authStateChanges {
         if [.initialSession, .signedIn, .signedOut].contains(state.event) {

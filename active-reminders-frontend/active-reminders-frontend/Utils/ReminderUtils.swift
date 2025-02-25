@@ -14,8 +14,8 @@ func triggerReminders(reminders: [Reminder]) {
 }
 
 private func triggerReminder(reminder: Reminder) {
-  print("Triggering reminder: \(reminder.description)")
+  sendNotificationForReminder(reminder: reminder)
   Task {
-    try await deleteReminder(reminder.id)
+//    try await deleteReminder(reminder.id)
   }
 }

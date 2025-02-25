@@ -47,13 +47,6 @@ struct DashboardView: View {
     .onAppear {
       Task {
         await loadReminders()
-        let location = self.locationManager.getLocation()
-        if (location != nil) {
-          let triggeredReminders = try await sendTriggerCheck(triggerCheckRequest: TriggerCheckRequest(location: location!))
-          for r in triggeredReminders.reminders {
-            print(r.id)
-          }
-        }
       }
     }
     .sheet(isPresented: $showModal) { // Show modal when showModal is true
