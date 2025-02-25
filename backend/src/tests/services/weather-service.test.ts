@@ -7,7 +7,7 @@ const location = {
   lon: 0.126,
 };
 
-test("Check weather", async () => {
+test("Check weather in London", async () => {
   const { data, error } = await fetchWeatherInfo(location);
   expect(error).toBeNull();
   expect(data?.coord.lat).toBe(location.lat);
