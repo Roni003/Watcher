@@ -6,5 +6,5 @@ export enum TriggerType {
   TFL = "tfl",
   GROCERY = "groceryStore",
   PHARMACY = "pharmacy",
-  CUSTOMLOCATION = "customLocation",
+  // CUSTOMLOCATION = "customLocation",
 }

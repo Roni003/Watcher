@@ -90,8 +90,9 @@ export async function getRemindersToTrigger(
       case TriggerType.PHARMACY:
         // Check pharmacy
         break;
-      case TriggerType.CUSTOMLOCATION:
+      // case TriggerType.CUSTOMLOCATION:
       // Check custom location
+      // break;
       default:
         break;
     }
