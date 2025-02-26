@@ -13,7 +13,7 @@ enum TriggerType: String, Codable {
   case tfl
   case groceryStore
   case pharmacy
-  case customLocation
+//  case customLocation
 }
 
 extension TriggerType {
@@ -29,8 +29,8 @@ extension TriggerType {
       return "storefront.fill"
     case .pharmacy:
       return "pill.fill"
-    case .customLocation:
-      return "location.square.fill"
+//    case .customLocation:
+//      return "location.square.fill"
     }
   }
   
@@ -46,8 +46,25 @@ extension TriggerType {
       return "Grocery Stores"
     case .pharmacy:
       return "Pharmacies"
-    case .customLocation:
-      return "Custom Location"
+//    case .customLocation:
+//      return "Custom Location"
+    }
+  }
+  
+  var descriptionText: String {
+    switch self {
+    case .weather:
+      return "This reminder will trigger when there is rain, snow, storms in your area."
+    case .traffic:
+      return "This reminder will trigger when there is heavy traffic in your area."
+    case .tfl:
+      return "This reminder will trigger when there are delays or distruptions on the line you choose."
+    case .groceryStore:
+      return "This reminder will trigger when there is a grocery store near your location."
+    case .pharmacy:
+      return "This reminder will trigger when there is a pharmacy near your location."
+      //    case .customLocation:
+      //      return "Custom Location"
     }
   }
 }

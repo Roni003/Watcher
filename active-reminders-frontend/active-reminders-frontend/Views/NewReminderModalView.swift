@@ -34,7 +34,7 @@ struct NewReminderModalView: View {
     .tfl,
     .groceryStore,
     .pharmacy,
-    .customLocation
+//    .customLocation
   ]
   
   var body: some View {
@@ -98,6 +98,12 @@ struct NewReminderModalView: View {
               }
             }
           )
+          if self.selectedTrigger == triggerType {
+            Text(triggerType.descriptionText)
+              .font(.footnote)
+              .foregroundStyle(.gray)
+              .bold()
+          }
         }
         
         if selectedTrigger == .tfl {
