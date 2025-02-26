@@ -94,7 +94,9 @@ struct NewReminderModalView: View {
               if selectedTrigger == triggerType {
                 selectedTrigger = nil
               } else {
-                selectedTrigger = triggerType
+                withAnimation {
+                  selectedTrigger = triggerType
+                }
               }
             }
           )

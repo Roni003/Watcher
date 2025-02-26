@@ -62,7 +62,9 @@ struct DashboardView: View {
     do {
       let fetchedReminders = try await fetchReminders()
       DispatchQueue.main.async {
-        self.reminders = fetchedReminders
+        withAnimation {
+          self.reminders = fetchedReminders
+        }
       }
     } catch {
       print("Error: \(error.localizedDescription)")
