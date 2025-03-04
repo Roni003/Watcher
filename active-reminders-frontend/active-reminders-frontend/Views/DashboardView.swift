@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DashboardView: View {
+  @Environment(\.colorScheme) var colorScheme
   @State var reminders: [Reminder] = []
   @State private var showModal = false // State variable to control modal visibility
   private var locationManager = LocationManagerModel()
@@ -36,6 +37,7 @@ struct DashboardView: View {
     }
     .padding(2)
     .navigationTitle("Dashboard")
+    .background(colorScheme == .dark ? .black : Color(UIColor.secondarySystemBackground))
     .toolbar(content: {
         ToolbarItem(placement: .topBarTrailing){
             NavigationLink(destination: SettingsView()) {
