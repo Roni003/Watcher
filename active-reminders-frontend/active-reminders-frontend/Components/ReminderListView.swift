@@ -16,5 +16,6 @@ struct ReminderListView: View {
     List(reminders) { reminder in
       ReminderRowView(reminder: reminder, onDelete: self.onDelete)
     }
+    .contentMargins(10)
   }
 }
