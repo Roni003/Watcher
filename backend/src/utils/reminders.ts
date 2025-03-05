@@ -28,6 +28,11 @@ export async function getRemindersToTrigger(
       continue;
     }
 
+    // Only check enabled reminders
+    if (!reminder.enabled) {
+      continue;
+    }
+
     switch (reminder.trigger) {
       case TriggerType.WEATHER:
         const { data, error } = await fetchWeatherInfo(location);

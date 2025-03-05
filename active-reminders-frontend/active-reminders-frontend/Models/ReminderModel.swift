@@ -68,6 +68,7 @@ struct Reminder: Codable, Identifiable {
   let id: String
   let userId: String
   let description: String
+  let enabled: Bool
   let createdAt: String
   let updatedAt: String
   var trigger: TriggerType?
@@ -76,6 +77,7 @@ struct Reminder: Codable, Identifiable {
   private enum CodingKeys: String, CodingKey {
     case id
     case userId = "user_id"
+    case enabled
     case description
     case createdAt = "created_at"
     case updatedAt = "updated_at"

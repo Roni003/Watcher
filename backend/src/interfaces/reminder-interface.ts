@@ -16,6 +16,7 @@ export interface IReminder {
   id: string;
   user_id: string;
   description: string;
+  enabled: boolean;
   created_at: string;
   updated_at?: string;
   trigger?: TriggerType;

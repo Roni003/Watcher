@@ -95,7 +95,8 @@ export async function checkReminderTriggers(req: Request, res: Response) {
     return;
   }
 
+  console.log("Checking reminders for location", location);
   const filteredReminders = await getRemindersToTrigger(reminders, location);
-
+  console.log("Reminders to trigger", filteredReminders);
   res.json({ reminders: filteredReminders });
 }
