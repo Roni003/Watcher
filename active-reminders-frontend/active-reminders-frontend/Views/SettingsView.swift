@@ -14,7 +14,7 @@ struct SettingsView: View {
   @State private var email: String = ""
   
   private var defaultRadius = 200
-  private var defaultInterval = 30 // 30 seconds
+  private var defaultInterval = 60 // 60seconds
   
   private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
 
@@ -32,17 +32,17 @@ struct SettingsView: View {
         .cornerRadius(8)
         .bold()
       
-      Text("Trigger Radius")
+      Text("Trigger Radius (meters)")
         .foregroundStyle(.secondary)
         .font(.system(size: 22))
         .bold()
-      TextField("Radius:" + radiusString, text: $radiusString)
+      TextField("Radius" + radiusString, text: $radiusString)
         .padding(12)
         .background(inputBoxBackgroundColor)
         .cornerRadius(8)
         .bold()
       
-      Text("Check-Trigger Interval")
+      Text("Check-Trigger Interval (seconds)")
         .foregroundStyle(.secondary)
         .font(.system(size: 22))
         .bold()
