@@ -68,7 +68,7 @@ struct Reminder: Codable, Identifiable {
   let id: String
   let userId: String
   let description: String
-  let enabled: Bool
+  var enabled: Bool
   let createdAt: String
   let updatedAt: String
   var trigger: TriggerType?

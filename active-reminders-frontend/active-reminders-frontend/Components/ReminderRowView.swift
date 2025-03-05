@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 
 struct ReminderRowView: View {
-  var reminder: Reminder
+  @State var reminder: Reminder
   var onChange: () -> Void
   
   var body: some View {
@@ -48,6 +48,19 @@ struct ReminderRowView: View {
         }
       }
       .tint(.red)
+    }
+    .onTapGesture {
+      self.reminder.enabled.toggle()
+      Task {
+        do {
+          if (try await toggleReminderEnabled(reminder: reminder)) {
+            print("Toggled reminder \(reminder.description)")
+          }
+          onChange()
+        } catch {
+          print("Error toggling reminder: \(error.localizedDescription)")
+        }
+      }
     }
   }
 }

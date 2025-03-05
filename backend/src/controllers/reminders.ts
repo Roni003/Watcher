@@ -68,6 +68,8 @@ export async function patchReminder(req: Request, res: Response) {
     return;
   }
 
+  console.log("Patching reminder", reminderId, reminderData);
+
   const { data: updatedReminder, error: err } = await patchReminderById(
     reminderId,
     userId,
