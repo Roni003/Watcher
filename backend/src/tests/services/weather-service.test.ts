@@ -1,11 +1,17 @@
 import { expect, jest, test } from "@jest/globals";
 import { fetchWeatherInfo } from "../../services/weather-service";
+import config from "../../config/config";
 
 // London coordinates
 const location = {
   lat: 51.5049,
   lon: 0.126,
 };
+
+test("Check Openweather API key", () => {
+  expect(config.openweatherKey).toBeDefined();
+  expect(config.openweatherKey).not.toBe("");
+});
 
 test("Check weather in London", async () => {
   const { data, error } = await fetchWeatherInfo(location);
