@@ -1,5 +1,5 @@
 export interface IGooglePlacesResponse {
-  places: IGooglePlace[];
+  places?: IGooglePlace[];
 }
 
 export interface IGooglePlace {

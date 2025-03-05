@@ -22,5 +22,5 @@ test("Check nearby supermarkets", async () => {
     maxResults
   );
 
-  expect(nearbySupermarkets).toBeDefined();
+  expect(nearbySupermarkets.places).toBeDefined();
 });

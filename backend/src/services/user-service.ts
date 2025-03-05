@@ -1,6 +1,9 @@
+import { IUser } from "../interfaces/user-interface";
 import supabaseClient from "./supabase";
 
-export async function getUserById(id: string) {
+export async function getUserById(
+  id: string
+): Promise<{ data: IUser; error: any }> {
   const { data, error } = await supabaseClient
     .from("users")
     .select("*")

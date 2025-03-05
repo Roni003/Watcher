@@ -10,7 +10,7 @@ export async function getNearbyPlaces(
   radius: number,
   locationTypes: string[],
   maxResultCount: number
-): Promise<IGooglePlace[]> {
+): Promise<IGooglePlacesResponse> {
   const fieldMask = "places.displayName,places.googleMapsUri";
   const url = `https://places.googleapis.com/v1/places:searchNearby`;
   const body = {
@@ -39,5 +39,5 @@ export async function getNearbyPlaces(
 
   const json: IGooglePlacesResponse = await res.json();
 
-  return json.places;
+  return json;
 }

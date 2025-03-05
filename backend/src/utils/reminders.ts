@@ -5,7 +5,9 @@ import {
   TflMetadata,
 } from "../interfaces/reminder-interface";
 import { TriggerType } from "../interfaces/trigger-interface";
+import { getNearbyPlaces } from "../services/map-service";
 import { fetchTFLInfo } from "../services/tfl-service";
+import { getUserById } from "../services/user-service";
 import { fetchCurrentWeatherInfo } from "../services/weather-service";
 import { doesLineHaveGoodService } from "./tfl";
 import { isBadWeather } from "./weather";
@@ -50,14 +52,25 @@ export async function getRemindersToTrigger(
         // Check traffic
         break;
       case TriggerType.GROCERY:
-        // Check grocery
+        const groceryResult = await handleNearbyPlace(
+          location,
+          reminder,
+          "supermarket"
+        );
+        if (groceryResult) {
+          out.push(groceryResult);
+        }
         break;
       case TriggerType.PHARMACY:
-        // Check pharmacy
+        const pharmacyResult = await handleNearbyPlace(
+          location,
+          reminder,
+          "pharmacy"
+        );
+        if (pharmacyResult) {
+          out.push(pharmacyResult);
+        }
         break;
-      // case TriggerType.CUSTOMLOCATION:
-      // Check custom location
-      // break;
       default:
         break;
     }
@@ -117,5 +130,38 @@ async function handleTFL(location: ILocation, reminder: IReminder) {
   return {
     reminder,
     message,
+  };
+}
+
+async function handleNearbyPlace(
+  location: ILocation,
+  reminder: IReminder,
+  placeName: string
+) {
+  const { data, error } = await getUserById(reminder.user_id);
+  if (error) {
+    console.error(
+      "Error fetching user during grocery store trigger check",
+      error
+    );
+    return;
+  }
+
+  const radius = data.radius;
+  const maxResults = 3;
+  const nearbyPlaces = await getNearbyPlaces(
+    location,
+    radius,
+    [placeName],
+    maxResults
+  );
+
+  if (!nearbyPlaces.places || nearbyPlaces.places.length === 0) {
+    return;
+  }
+
+  return {
+    reminder,
+    message: `Nearby (${radius}m) ${placeName} found: ${nearbyPlaces.places[0].displayName.text}`,
   };
 }
