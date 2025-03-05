@@ -25,8 +25,9 @@ test("Check current weather in London", async () => {
   expect(data?.weather[0]).toBeDefined();
 });
 
-test("Check weather forecast in London", async () => {
-  const { data, error } = await fetchHourlyWeatherInfo(location);
-  expect(error).toBeNull();
-  console.log(data);
-});
+// Weather forecast not included in the free tier
+// test("Check weather forecast in London", async () => {
+//   const { data, error } = await fetchHourlyWeatherInfo(location);
+//   expect(error).toBeNull();
+//   console.log(data);
+// });
