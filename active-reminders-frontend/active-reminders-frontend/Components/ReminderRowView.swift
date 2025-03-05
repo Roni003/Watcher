@@ -13,19 +13,26 @@ struct ReminderRowView: View {
   var onDelete: () -> Void
   
   var body: some View {
-    VStack(alignment: .leading) {
-      if reminder.description != "" {
-        Text(reminder.description)
-      }
-      if reminder.trigger != nil {
-        HStack {
-          Image(systemName: reminder.trigger!.iconName)
-          Text(reminder.trigger!.displayText)
-            .foregroundStyle(.gray)
-            .bold()
+    HStack {
+      VStack(alignment: .leading) {
+        if reminder.description != "" {
+          Text(reminder.description)
+        }
+        if reminder.trigger != nil {
+          HStack {
+            Image(systemName: reminder.trigger!.iconName)
+            Text(reminder.trigger!.displayText)
+              .foregroundStyle(.gray)
+              .bold()
+          }
         }
       }
+      Spacer()
+      if (!self.reminder.enabled) {
+        Text("Disabled").font(.subheadline).bold()
+      }
     }
+    .opacity(self.reminder.enabled ? 1.0 : 0.5)
     .padding(6.0)
     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
     .shadow(radius: 0.5)
