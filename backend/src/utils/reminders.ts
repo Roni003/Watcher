@@ -35,56 +35,16 @@ export async function getRemindersToTrigger(
 
     switch (reminder.trigger) {
       case TriggerType.WEATHER:
-        const { data, error } = await fetchCurrentWeatherInfo(location);
-        if (error) {
-          console.error("[Error fetching weather]", error);
-          continue;
-        }
-
-        const weatherCondition = data?.weather[0].main;
-        let weatherMessage =
-          data?.weather[0].description || "No description available";
-        if (weatherMessage && data?.name) {
-          weatherMessage += ` in ${data.name}`;
-        }
-        if (weatherCondition && isBadWeather(weatherCondition)) {
-          out.push({
-            reminder,
-            message: weatherMessage,
-          });
+        const weatherResult = await handleWeather(location, reminder);
+        if (weatherResult) {
+          out.push(weatherResult);
         }
         break;
       case TriggerType.TFL:
-        if (!reminder.metadata) {
-          console.log("No metadata specified for TFL reminder, skipping");
-          continue;
+        const tflResult = await handleTFL(location, reminder);
+        if (tflResult) {
+          out.push(tflResult);
         }
-
-        const metadata = reminder.metadata as TflMetadata;
-        if ((metadata as TflMetadata).line == undefined) {
-          console.log("No line specified for TFL reminder, skipping");
-          continue;
-        }
-
-        const line = (metadata as TflMetadata).line;
-        const { data: tflData, error: tflError } = await fetchTFLInfo(line);
-        if (tflError || !tflData?.lineStatuses) {
-          console.error("[Error fetching TFL info]", tflError);
-          continue;
-        }
-
-        const stasus = tflData?.lineStatuses[0];
-        const message = `${stasus.statusSeverityDescription} on ${tflData.name} line`;
-
-        if (doesLineHaveGoodService(tflData)) {
-          continue;
-        }
-
-        // Only push those with bad service
-        out.push({
-          reminder,
-          message,
-        });
         break;
       case TriggerType.TRAFFIC:
         // Check traffic
@@ -104,4 +64,58 @@ export async function getRemindersToTrigger(
   }
 
   return out;
+}
+
+async function handleWeather(location: ILocation, reminder: IReminder) {
+  const { data, error } = await fetchCurrentWeatherInfo(location);
+  if (error) {
+    console.error("[Error fetching weather]", error);
+    return;
+  }
+
+  const weatherCondition = data?.weather[0].main;
+  let weatherMessage =
+    data?.weather[0].description || "No description available";
+  if (weatherMessage && data?.name) {
+    weatherMessage += ` in ${data.name}`;
+  }
+  if (weatherCondition && isBadWeather(weatherCondition)) {
+    return {
+      reminder,
+      message: weatherMessage,
+    };
+  }
+}
+
+async function handleTFL(location: ILocation, reminder: IReminder) {
+  if (!reminder.metadata) {
+    console.log("No metadata specified for TFL reminder, skipping");
+    return;
+  }
+
+  const metadata = reminder.metadata as TflMetadata;
+  if ((metadata as TflMetadata).line == undefined) {
+    console.log("No line specified for TFL reminder, skipping");
+    return;
+  }
+
+  const line = (metadata as TflMetadata).line;
+  const { data: tflData, error: tflError } = await fetchTFLInfo(line);
+  if (tflError || !tflData?.lineStatuses) {
+    console.error("[Error fetching TFL info]", tflError);
+    return;
+  }
+
+  const stasus = tflData?.lineStatuses[0];
+  const message = `${stasus.statusSeverityDescription} on ${tflData.name} line`;
+
+  if (doesLineHaveGoodService(tflData)) {
+    return;
+  }
+
+  // Only push those with bad service
+  return {
+    reminder,
+    message,
+  };
 }
