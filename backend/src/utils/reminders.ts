@@ -6,7 +6,7 @@ import {
 } from "../interfaces/reminder-interface";
 import { TriggerType } from "../interfaces/trigger-interface";
 import { fetchTFLInfo } from "../services/tfl-service";
-import { fetchWeatherInfo } from "../services/weather-service";
+import { fetchCurrentWeatherInfo } from "../services/weather-service";
 import { doesLineHaveGoodService } from "./tfl";
 import { isBadWeather } from "./weather";
 
@@ -35,7 +35,7 @@ export async function getRemindersToTrigger(
 
     switch (reminder.trigger) {
       case TriggerType.WEATHER:
-        const { data, error } = await fetchWeatherInfo(location);
+        const { data, error } = await fetchCurrentWeatherInfo(location);
         if (error) {
           console.error("[Error fetching weather]", error);
           continue;

@@ -6,6 +6,7 @@ interface Config {
   supabaseURL: string;
   openweatherKey: string;
   tflKey: string;
+  googleMapsKey: string;
 }
 
 const config: Config = {
@@ -15,6 +16,7 @@ const config: Config = {
   supabaseURL: process.env.SUPABASE_URL || "",
   openweatherKey: process.env.OPENWEATHER_KEY || "",
   tflKey: process.env.TFL_KEY || "",
+  googleMapsKey: process.env.GOOGLE_MAPS_KEY || "",
 };
 
 export default config;
