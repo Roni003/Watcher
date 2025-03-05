@@ -17,8 +17,7 @@ func sendNotificationForReminder(reminderMessagePair: ReminderMessagePair) {
   
   content.title = "\(reminder.description)"
   content.body = "\(reminder.trigger?.displayText ?? "") - \(message)"
-  
-  content.sound = .default
+  content.sound = reminder.trigger?.notificationSound
   
   // TODO: add actions such as click to open map
   content.categoryIdentifier = "REMINDER_CATEGORY"

@@ -5,6 +5,7 @@
 //  Created by Ronik on 13/02/2025.
 //
 
+import UserNotifications
 import Foundation
 
 enum TriggerType: String, Codable {
@@ -65,6 +66,21 @@ extension TriggerType {
       return "This reminder will trigger when there is a pharmacy near your location."
       //    case .customLocation:
       //      return "Custom Location"
+    }
+  }
+  
+  var notificationSound: UNNotificationSound {
+    switch self {
+    case .weather:
+      return .default
+    case .traffic:
+      return .default
+    case .tfl:
+      return .default
+    case .groceryStore:
+      return .default
+    case .pharmacy:
+      return .default
     }
   }
 }
