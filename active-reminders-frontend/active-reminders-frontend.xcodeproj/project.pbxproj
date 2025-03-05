@@ -430,6 +430,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"active-reminders-frontend/Preview Content\"";
+				DEVELOPMENT_TEAM = 9YG56EF5H8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "active-reminders-frontend/Info.plist";
@@ -461,6 +462,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"active-reminders-frontend/Preview Content\"";
+				DEVELOPMENT_TEAM = 9YG56EF5H8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "active-reminders-frontend/Info.plist";
