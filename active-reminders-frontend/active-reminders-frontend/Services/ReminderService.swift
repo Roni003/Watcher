@@ -58,13 +58,13 @@ func deleteReminder(_ id: String) async throws {
   }
 }
 
-func toggleReminderEnabled(reminder: Reminder) async throws -> Bool {
+func toggleReminderEnabled(reminder: Reminder, newStatus: Bool) async throws -> Bool {
   guard let url = URL(string: SERVER_URL + "/reminders/\(reminder.id)") else {
     throw URLError(.badURL)
   }
   
   var request = URLRequest(url: url)
-  let requestData = ToggleReminderRequest(enabled: !reminder.enabled)
+  let requestData = ToggleReminderRequest(enabled: newStatus)
   request.httpMethod = "PATCH"
   request.setValue(await getAuthToken(), forHTTPHeaderField: AUTH_TOKEN_HEADER_KEY)
   request.setValue("application/json", forHTTPHeaderField: "Content-Type")

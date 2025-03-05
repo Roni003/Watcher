@@ -53,7 +53,7 @@ struct ReminderRowView: View {
       self.reminder.enabled.toggle()
       Task {
         do {
-          if (try await toggleReminderEnabled(reminder: reminder)) {
+          if (try await toggleReminderEnabled(reminder: reminder, newStatus: self.reminder.enabled)) {
             print("Toggled reminder \(reminder.description)")
           }
           onChange()
