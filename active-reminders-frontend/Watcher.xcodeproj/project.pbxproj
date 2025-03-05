@@ -30,18 +30,18 @@
 
 /* Begin PBXFileReference section */
 		404AF54D2D6D314C00154601 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		40850FE32D5BED6D004DB552 /* active-reminders-frontend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "active-reminders-frontend.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		40850FF32D5BED6E004DB552 /* active-reminders-frontendTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "active-reminders-frontendTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		40850FFD2D5BED6E004DB552 /* active-reminders-frontendUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "active-reminders-frontendUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		40850FE32D5BED6D004DB552 /* Watcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		40850FF32D5BED6E004DB552 /* WatcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40850FFD2D5BED6E004DB552 /* WatcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatcherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		40388F352D5BEEFD0064544C /* Exceptions for "active-reminders-frontend" folder in "active-reminders-frontend" target */ = {
+		40388F352D5BEEFD0064544C /* Exceptions for "active-reminders-frontend" folder in "Watcher" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 40850FE22D5BED6D004DB552 /* active-reminders-frontend */;
+			target = 40850FE22D5BED6D004DB552 /* Watcher */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -49,7 +49,7 @@
 		40850FE52D5BED6D004DB552 /* active-reminders-frontend */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				40388F352D5BEEFD0064544C /* Exceptions for "active-reminders-frontend" folder in "active-reminders-frontend" target */,
+				40388F352D5BEEFD0064544C /* Exceptions for "active-reminders-frontend" folder in "Watcher" target */,
 			);
 			path = "active-reminders-frontend";
 			sourceTree = "<group>";
@@ -107,9 +107,9 @@
 		40850FE42D5BED6D004DB552 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				40850FE32D5BED6D004DB552 /* active-reminders-frontend.app */,
-				40850FF32D5BED6E004DB552 /* active-reminders-frontendTests.xctest */,
-				40850FFD2D5BED6E004DB552 /* active-reminders-frontendUITests.xctest */,
+				40850FE32D5BED6D004DB552 /* Watcher.app */,
+				40850FF32D5BED6E004DB552 /* WatcherTests.xctest */,
+				40850FFD2D5BED6E004DB552 /* WatcherUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,9 +125,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		40850FE22D5BED6D004DB552 /* active-reminders-frontend */ = {
+		40850FE22D5BED6D004DB552 /* Watcher */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 408510072D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "active-reminders-frontend" */;
+			buildConfigurationList = 408510072D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "Watcher" */;
 			buildPhases = (
 				40850FDF2D5BED6D004DB552 /* Sources */,
 				40850FE02D5BED6D004DB552 /* Frameworks */,
@@ -140,17 +140,17 @@
 			fileSystemSynchronizedGroups = (
 				40850FE52D5BED6D004DB552 /* active-reminders-frontend */,
 			);
-			name = "active-reminders-frontend";
+			name = Watcher;
 			packageProductDependencies = (
 				40388F2F2D5BEDFE0064544C /* Supabase */,
 			);
 			productName = "active-reminders-frontend";
-			productReference = 40850FE32D5BED6D004DB552 /* active-reminders-frontend.app */;
+			productReference = 40850FE32D5BED6D004DB552 /* Watcher.app */;
 			productType = "com.apple.product-type.application";
 		};
-		40850FF22D5BED6E004DB552 /* active-reminders-frontendTests */ = {
+		40850FF22D5BED6E004DB552 /* WatcherTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4085100A2D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "active-reminders-frontendTests" */;
+			buildConfigurationList = 4085100A2D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "WatcherTests" */;
 			buildPhases = (
 				40850FEF2D5BED6E004DB552 /* Sources */,
 				40850FF02D5BED6E004DB552 /* Frameworks */,
@@ -164,16 +164,16 @@
 			fileSystemSynchronizedGroups = (
 				40850FF62D5BED6E004DB552 /* active-reminders-frontendTests */,
 			);
-			name = "active-reminders-frontendTests";
+			name = WatcherTests;
 			packageProductDependencies = (
 			);
 			productName = "active-reminders-frontendTests";
-			productReference = 40850FF32D5BED6E004DB552 /* active-reminders-frontendTests.xctest */;
+			productReference = 40850FF32D5BED6E004DB552 /* WatcherTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		40850FFC2D5BED6E004DB552 /* active-reminders-frontendUITests */ = {
+		40850FFC2D5BED6E004DB552 /* WatcherUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4085100D2D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "active-reminders-frontendUITests" */;
+			buildConfigurationList = 4085100D2D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "WatcherUITests" */;
 			buildPhases = (
 				40850FF92D5BED6E004DB552 /* Sources */,
 				40850FFA2D5BED6E004DB552 /* Frameworks */,
@@ -187,11 +187,11 @@
 			fileSystemSynchronizedGroups = (
 				408510002D5BED6E004DB552 /* active-reminders-frontendUITests */,
 			);
-			name = "active-reminders-frontendUITests";
+			name = WatcherUITests;
 			packageProductDependencies = (
 			);
 			productName = "active-reminders-frontendUITests";
-			productReference = 40850FFD2D5BED6E004DB552 /* active-reminders-frontendUITests.xctest */;
+			productReference = 40850FFD2D5BED6E004DB552 /* WatcherUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -217,7 +217,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 40850FDE2D5BED6D004DB552 /* Build configuration list for PBXProject "active-reminders-frontend" */;
+			buildConfigurationList = 40850FDE2D5BED6D004DB552 /* Build configuration list for PBXProject "Watcher" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -234,9 +234,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				40850FE22D5BED6D004DB552 /* active-reminders-frontend */,
-				40850FF22D5BED6E004DB552 /* active-reminders-frontendTests */,
-				40850FFC2D5BED6E004DB552 /* active-reminders-frontendUITests */,
+				40850FE22D5BED6D004DB552 /* Watcher */,
+				40850FF22D5BED6E004DB552 /* WatcherTests */,
+				40850FFC2D5BED6E004DB552 /* WatcherUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -292,12 +292,12 @@
 /* Begin PBXTargetDependency section */
 		40850FF52D5BED6E004DB552 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 40850FE22D5BED6D004DB552 /* active-reminders-frontend */;
+			target = 40850FE22D5BED6D004DB552 /* Watcher */;
 			targetProxy = 40850FF42D5BED6E004DB552 /* PBXContainerItemProxy */;
 		};
 		40850FFF2D5BED6E004DB552 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 40850FE22D5BED6D004DB552 /* active-reminders-frontend */;
+			target = 40850FE22D5BED6D004DB552 /* Watcher */;
 			targetProxy = 40850FFE2D5BED6E004DB552 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -500,7 +500,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/active-reminders-frontend.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/active-reminders-frontend";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watcher.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Watcher";
 			};
 			name = Debug;
 		};
@@ -518,7 +518,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/active-reminders-frontend.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/active-reminders-frontend";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watcher.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Watcher";
 			};
 			name = Release;
 		};
@@ -557,7 +557,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		40850FDE2D5BED6D004DB552 /* Build configuration list for PBXProject "active-reminders-frontend" */ = {
+		40850FDE2D5BED6D004DB552 /* Build configuration list for PBXProject "Watcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				408510052D5BED6E004DB552 /* Debug */,
@@ -566,7 +566,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		408510072D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "active-reminders-frontend" */ = {
+		408510072D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "Watcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				408510082D5BED6E004DB552 /* Debug */,
@@ -575,7 +575,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4085100A2D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "active-reminders-frontendTests" */ = {
+		4085100A2D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "WatcherTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4085100B2D5BED6E004DB552 /* Debug */,
@@ -584,7 +584,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4085100D2D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "active-reminders-frontendUITests" */ = {
+		4085100D2D5BED6E004DB552 /* Build configuration list for PBXNativeTarget "WatcherUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4085100E2D5BED6E004DB552 /* Debug */,
