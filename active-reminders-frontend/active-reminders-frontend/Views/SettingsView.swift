@@ -16,14 +16,14 @@ struct SettingsView: View {
   private var defaultRadius = 200
   private var defaultInterval = 60 // 60seconds
   
+  private let fontSize: CGFloat = 20
   private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
 
 
   var body: some View {
     VStack(alignment: .leading , spacing: 12) {
       Text("Email")
-        .foregroundStyle(.secondary)
-        .font(.system(size: 22))
+        .font(.system(size: fontSize))
         .bold()
       Text(email)
         .padding(12)
@@ -33,8 +33,7 @@ struct SettingsView: View {
         .bold()
       
       Text("Trigger Radius (meters)")
-        .foregroundStyle(.secondary)
-        .font(.system(size: 22))
+        .font(.system(size: fontSize))
         .bold()
       TextField("Radius" + radiusString, text: $radiusString)
         .padding(12)
@@ -43,8 +42,7 @@ struct SettingsView: View {
         .bold()
       
       Text("Check-Trigger Interval (seconds)")
-        .foregroundStyle(.secondary)
-        .font(.system(size: 22))
+        .font(.system(size: fontSize))
         .bold()
       TextField("Seconds", text: $fetchIntervalString)
         .padding(12)
