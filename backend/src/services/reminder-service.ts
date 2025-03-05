@@ -72,6 +72,27 @@ export async function createNewReminder(
   return { data, error };
 }
 
+export async function patchReminderById(
+  reminderId: string,
+  userId: string,
+  newData: Omit<IReminder, "id" | "created_at" | "user_id">
+) {
+  const { data, error } = await supabaseClient
+    .from("reminders")
+    .update({
+      ...newData,
+    })
+    .eq("id", reminderId)
+    .eq("user_id", userId)
+    .select();
+
+  if (error) {
+    return { error };
+  }
+
+  return { data, error };
+}
+
 export async function deleteReminderById(reminderId: string, userId: string) {
   const { error } = await supabaseClient
     .from("reminders")

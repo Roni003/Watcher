@@ -4,6 +4,7 @@ import {
   getRemindersById,
   deleteReminderById,
   createNewReminder,
+  patchReminderById,
 } from "../services/reminder-service";
 import { IReminder } from "../interfaces/reminder-interface";
 import { getRemindersToTrigger } from "../utils/reminders";
@@ -48,6 +49,41 @@ export async function createReminder(req: Request, res: Response) {
   }
 
   res.json({ message: "Reminder created successfully", reminder: data });
+}
+
+export async function patchReminder(req: Request, res: Response) {
+  const reminderId: string = req.params.id;
+  const userId: string = req.user.id;
+  const reminderData: IReminder = req.body;
+
+  const { data, error } = await getRemindersById(reminderId, userId);
+  if (error) {
+    console.error("[Error updating reminder] " + error);
+    res.status(500).json({ error: error.message });
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    res.status(404).json({ error: `Reminder with id=${reminderId} not found` });
+    return;
+  }
+
+  const { data: updatedReminder, error: err } = await patchReminderById(
+    reminderId,
+    userId,
+    reminderData
+  );
+
+  if (err) {
+    console.error("[Error updating reminder] " + err);
+    res.status(400).json({ error: err.message });
+    return;
+  }
+
+  res.json({
+    message: "Reminder updated successfully",
+    reminder: updatedReminder,
+  });
 }
 
 export async function deleteReminder(req: Request, res: Response) {

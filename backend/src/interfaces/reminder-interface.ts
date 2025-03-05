@@ -13,11 +13,14 @@ export interface TflMetadata {
 export type ReminderMetadata = CustomLocationMetadata | TflMetadata | {};
 
 export interface IReminder {
+  // unchanged fields
   id: string;
   user_id: string;
+  created_at: string;
+
+  // changable fields
   description: string;
   enabled: boolean;
-  created_at: string;
   updated_at?: string;
   trigger?: TriggerType;
   metadata?: ReminderMetadata; // JSON stringified metadata

@@ -4,6 +4,7 @@ import {
   deleteReminder,
   createReminder,
   checkReminderTriggers,
+  patchReminder,
 } from "../controllers/reminders";
 
 const router: Router = Router();
@@ -18,7 +19,7 @@ router.post("/", createReminder);
 router.delete("/:id", deleteReminder);
 
 // Update reminder
-router.put("/:id", (req: Request, res: Response) => {});
+router.patch("/:id", patchReminder);
 
 // Check if reminders should be triggered
 router.post("/triggercheck", checkReminderTriggers);
