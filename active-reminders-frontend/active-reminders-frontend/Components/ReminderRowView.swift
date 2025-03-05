@@ -10,7 +10,7 @@ import Foundation
 
 struct ReminderRowView: View {
   var reminder: Reminder
-  var onDelete: () -> Void
+  var onChange: () -> Void
   
   var body: some View {
     HStack {
@@ -41,7 +41,7 @@ struct ReminderRowView: View {
         Task {
           do {
             try await deleteReminder(reminder.id)
-            onDelete()  // Refresh only after deletion completes
+            onChange()  // Refresh only after deletion completes
           } catch {
             print("Error deleting reminder: \(error.localizedDescription)")
           }

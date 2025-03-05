@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ReminderListView: View {
   var reminders: [Reminder]
-  var onDelete: () -> Void
+  var onChange: () -> Void
   
   var body: some View {
     List(reminders) { reminder in
-      ReminderRowView(reminder: reminder, onDelete: self.onDelete)
+      ReminderRowView(reminder: reminder, onChange: self.onChange)
     }
     .contentMargins(10)
   }

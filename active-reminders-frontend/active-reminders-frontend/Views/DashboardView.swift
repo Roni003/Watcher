@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DashboardView: View {
   @Environment(\.colorScheme) var colorScheme
-  @State var reminders: [Reminder] = []
+  @StateObject var reminderViewModel = ReminderViewModel()
   @State private var showModal = false // State variable to control modal visibility
   private var locationManager = LocationManagerModel()
 
@@ -18,9 +18,9 @@ struct DashboardView: View {
   
   var body: some View {
     VStack() {
-      ReminderListView(reminders: self.reminders, onDelete: {
+      ReminderListView(reminders: reminderViewModel.reminders, onChange: {
         Task {
-          await loadReminders()
+          await reminderViewModel.loadReminders()
         }
       })
       HStack {
@@ -46,30 +46,17 @@ struct DashboardView: View {
           }
       }
     })
-    .onAppear {
+    .onAppear() {
       Task {
-        await loadReminders()
+        await self.reminderViewModel.loadReminders()
       }
     }
     .sheet(isPresented: $showModal) { // Show modal when showModal is true
       NewReminderModalView(onReminderCreated: {
         Task {
-          await loadReminders()
+          await self.reminderViewModel.loadReminders()
         }
       })
-    }
-  }
-    
-  func loadReminders() async {
-    do {
-      let fetchedReminders = try await fetchReminders()
-      DispatchQueue.main.async {
-        withAnimation {
-          self.reminders = fetchedReminders
-        }
-      }
-    } catch {
-      print("Error: \(error.localizedDescription)")
     }
   }
 }
