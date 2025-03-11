@@ -14,7 +14,7 @@ struct SettingsView: View {
   @State private var email: String = ""
   
   private var defaultRadius = 200
-  private var defaultInterval = 60 // 60seconds
+  private var defaultInterval = 180 // 3 minutes
   
   private let fontSize: CGFloat = 20
   private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
