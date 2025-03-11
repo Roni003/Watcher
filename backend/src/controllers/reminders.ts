@@ -8,6 +8,9 @@ import {
 } from "../services/reminder-service";
 import { IReminder } from "../interfaces/reminder-interface";
 import { getRemindersToTrigger } from "../utils/reminders";
+import config from "../config/config";
+
+const triggerCheckRequestTimes = new Map<string, number>();
 
 export async function getReminders(req: Request, res: Response) {
   try {
@@ -120,8 +123,22 @@ export async function checkReminderTriggers(req: Request, res: Response) {
     return;
   }
 
-  const { location } = req.body;
+  if (triggerCheckRequestTimes.has(req.user.id)) {
+    const lastRequestTime = triggerCheckRequestTimes.get(req.user.id);
+    if (Date.now() - lastRequestTime! < config.TRIGGER_CHECK_MIN_INTERVAL_MS) {
+      res.status(429).json({
+        error: "Rate limit exceeded",
+        message: `Wait ${
+          config.TRIGGER_CHECK_MIN_INTERVAL_MS - (Date.now() - lastRequestTime!)
+        }ms before making another trigger check request`,
+      });
+      return;
+    }
+  }
 
+  triggerCheckRequestTimes.set(req.user.id, Date.now());
+
+  const { location } = req.body;
   const { data: reminders, error } = await getRemindersForUser(req.user.id);
   if (error) {
     res.status(500).json({ error: "Error getting reminders" });

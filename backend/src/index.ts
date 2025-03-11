@@ -7,7 +7,6 @@ import userRoutes from "./routes/user";
 import { authMiddleware } from "./middleware/auth";
 
 const app: express.Application = express();
-
 const port: number = config.port;
 
 app.listen(port, () => {

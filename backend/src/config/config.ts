@@ -1,5 +1,6 @@
 import "dotenv/config";
 interface Config {
+  TRIGGER_CHECK_MIN_INTERVAL_MS: number;
   port: number;
   environment: "dev" | "prod";
   supabaseKey: string;
@@ -10,6 +11,7 @@ interface Config {
 }
 
 const config: Config = {
+  TRIGGER_CHECK_MIN_INTERVAL_MS: 1000 * 30, // Don't let users spam triggercheck endpoint
   port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
   environment: "dev",
   supabaseKey: process.env.SUPABASE_KEY || "",
