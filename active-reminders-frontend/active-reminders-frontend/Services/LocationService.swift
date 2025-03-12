@@ -4,7 +4,13 @@ import CoreLocation
 final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
   var locationManager = CLLocationManager()
   private var timer: Timer?
-  private let updateInterval: TimeInterval = 30.0 // 30 seconds
+  private var updateInterval: TimeInterval = 180.0
+  
+  public func setUpdateInterval(_ interval: TimeInterval) {
+    self.updateInterval = interval
+    print("Triggercheck fetch interval set to: \(interval)")
+    self.updateTimerInterval(to: interval)
+  }
   
   override init() {
     super.init()
@@ -53,6 +59,16 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
     checkAndSendLocation()
     
     print("Started location updates with \(updateInterval) second interval")
+  }
+  
+  func updateTimerInterval(to newInterval: TimeInterval) {
+    stopTimer()
+    
+    timer = Timer.scheduledTimer(withTimeInterval: newInterval, repeats: true) { [weak self] _ in
+      self?.checkAndSendLocation()
+    }
+    
+    print("Timer updated to new interval: \(newInterval) seconds")
   }
   
   func stopLocationUpdates() {

@@ -47,7 +47,7 @@ struct DashboardView: View {
     .background(colorScheme == .dark ? .black : Color(UIColor.secondarySystemBackground))
     .toolbar(content: {
         ToolbarItem(placement: .topBarTrailing){
-            NavigationLink(destination: SettingsView()) {
+          NavigationLink(destination: SettingsView(locationManager: self.locationManager)) {
               Image(systemName: "gearshape")
                   .foregroundColor(.blue)
           }

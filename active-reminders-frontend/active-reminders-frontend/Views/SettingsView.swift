@@ -12,13 +12,18 @@ struct SettingsView: View {
   @State private var radiusString: String = ""
   @State private var fetchIntervalString: String = ""
   @State private var email: String = ""
+  @State private var locationManager: LocationManagerModel
   
   private var defaultRadius = 200
   private var defaultInterval = 180 // 3 minutes
+  private var minimumInterval = 30 // 30 seconds
   
   private let fontSize: CGFloat = 20
   private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
-
+  
+  init(locationManager: LocationManagerModel) {
+    self.locationManager = locationManager;
+  }
 
   var body: some View {
     VStack(alignment: .leading , spacing: 12) {
@@ -99,18 +104,13 @@ struct SettingsView: View {
   
   func updateSettings() async {
     let radius: Int = Int(self.radiusString) ?? defaultRadius
-    let fetchInterval: Int = Int(self.fetchIntervalString) ?? defaultInterval
-    
+    var fetchInterval: Int = Int(self.fetchIntervalString) ?? defaultInterval
+    fetchInterval = max(fetchInterval, minimumInterval)
     let patchRequest = PatchUserRequest(radius: radius, fetch_interval: fetchInterval)
     
+    self.locationManager.setUpdateInterval(TimeInterval(fetchInterval))
     Task {
       let req = try await patchUser(updatedBody: patchRequest)
-      print(req)
     }
   }
-}
-
-
-#Preview {
-    SettingsView()
 }
