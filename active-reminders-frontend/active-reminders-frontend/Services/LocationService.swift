@@ -4,10 +4,13 @@ import CoreLocation
 
 final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
   var locationManager = CLLocationManager()
+  private let minimumDistanceThreshold: CLLocationDistance = 25
+  private var lastSentLocation: Location
   private var timer: Timer?
   private var updateInterval: TimeInterval = 180.0
   private var isAppInForeground: Bool = true
   public var isUserInEngland: Bool = false
+
   
   public func setUpdateInterval(_ interval: TimeInterval) {
     self.updateInterval = interval
@@ -20,13 +23,13 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
     print("App state updated: \(isInForeground ? "foreground" : "background")")
   }
   
-  
   override init() {
+    self.lastSentLocation = Location(lat: 0, lon: 0)
+    self.isUserInEngland = Locale.current.region?.identifier == "GB"
+
     super.init()
     locationManager.delegate = self
     checkLocationAuthorization()
-    
-    self.isUserInEngland = Locale.current.region?.identifier == "GB"
   }
   
   deinit {
@@ -55,7 +58,6 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
                     lon: self.locationManager.location!.coordinate.longitude)
   }
   
-
   func startLocationUpdates() {
     locationManager.startUpdatingLocation()
     locationManager.allowsBackgroundLocationUpdates = true
@@ -93,35 +95,56 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
     timer = nil
   }
   
+  /**
+    * Returns If the location has changed significantly since the last request
+   */
+  private func hasLocationChangedSignificantly(from oldLocation: Location, to newLocation: Location) -> Bool {
+    let oldCLLocation = CLLocation(latitude: oldLocation.lat, longitude: oldLocation.lon)
+    let newCLLocation = CLLocation(latitude: newLocation.lat, longitude: newLocation.lon)
+    
+    let distance = oldCLLocation.distance(from: newCLLocation)
+    
+    print("Distance moved: \(distance) meters")
+    
+    return distance >= minimumDistanceThreshold
+  }
+  
   private func checkAndSendLocation() {
-    let location = self.getLocation()
+    
     if (self.isAppInForeground) {
       print("Skipping triggercheck since app is in foreground")
       return
     }
     
-    if (location != nil) {
-      Task {
-        do {
-          let triggeredReminders = try await sendTriggerCheck(
-            triggerCheckRequest: TriggerCheckRequest(location: location!)
-          )
-          
-          let reminderMessagePairs: [ReminderMessagePair] = triggeredReminders.reminders
-          
-          if !reminderMessagePairs.isEmpty {
-            DispatchQueue.main.async {
-              triggerReminders(reminderMessagePairs: reminderMessagePairs)
-            }
+    guard let currentLocation = self.getLocation() else {
+      print("Triggercheck check skipped - no location available")
+      return
+    }
+    
+    if !hasLocationChangedSignificantly(from: self.lastSentLocation, to: currentLocation) {
+      print("Location hasn't changed significantly, skipping triggercheck")
+      return
+    }
+    
+    Task {
+      do {
+        let triggeredReminders = try await sendTriggerCheck(
+          triggerCheckRequest: TriggerCheckRequest(location: currentLocation)
+        )
+        
+        self.lastSentLocation = currentLocation
+        let reminderMessagePairs: [ReminderMessagePair] = triggeredReminders.reminders
+        
+        if !reminderMessagePairs.isEmpty {
+          DispatchQueue.main.async {
+            triggerReminders(reminderMessagePairs: reminderMessagePairs)
           }
-          
-          print("Location check completed with \(reminderMessagePairs.count) triggered reminders")
-        } catch {
-          print("Error checking location triggers: \(error.localizedDescription)")
         }
+        
+        print("Location check completed with \(reminderMessagePairs.count) triggered reminders")
+      } catch {
+        print("Error checking location triggers: \(error.localizedDescription)")
       }
-    } else {
-      print("Location check skipped - no location available")
     }
   }
   

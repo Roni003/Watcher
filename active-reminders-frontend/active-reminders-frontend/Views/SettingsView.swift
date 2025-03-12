@@ -17,6 +17,7 @@ struct SettingsView: View {
   private var defaultRadius = 200
   private var defaultInterval = 180 // 3 minutes
   private var minimumInterval = 30 // 30 seconds
+//  private var minimumInterval = 0 // TODO: Only for dev mdoe
   
   private let fontSize: CGFloat = 20
   private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
