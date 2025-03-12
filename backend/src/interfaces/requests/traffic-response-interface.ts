@@ -20,6 +20,12 @@ interface ITrafficFlow {
   speed?: number;
   speedUncapped?: number;
   confidence?: number;
-  traversability?: string;
+  traversability?: ITraversability;
   subSegments?: {}[];
+}
+
+enum ITraversability {
+  OPEN = "open", // Road is open
+  CLOSED = "closed", // Road is closed
+  REVERSIBLENOTROUTABLE = "reversibleNotRoutable", // Road is reversible but not routable
 }
