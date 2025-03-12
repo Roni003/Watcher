@@ -24,7 +24,7 @@ interface ITrafficFlow {
   subSegments?: {}[];
 }
 
-enum ITraversability {
+export enum ITraversability {
   OPEN = "open", // Road is open
   CLOSED = "closed", // Road is closed
   REVERSIBLENOTROUTABLE = "reversibleNotRoutable", // Road is reversible but not routable
