@@ -136,8 +136,6 @@ export async function checkReminderTriggers(req: Request, res: Response) {
     }
   }
 
-  triggerCheckRequestTimes.set(req.user.id, Date.now());
-
   const { location } = req.body;
   const { data: reminders, error } = await getRemindersForUser(req.user.id);
   if (error) {
@@ -149,6 +147,8 @@ export async function checkReminderTriggers(req: Request, res: Response) {
     res.status(200).json([]);
     return;
   }
+
+  triggerCheckRequestTimes.set(req.user.id, Date.now());
 
   console.log("Checking reminders for location", location);
   const filteredReminders = await getRemindersToTrigger(reminders, location);
