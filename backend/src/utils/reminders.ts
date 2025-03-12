@@ -1,3 +1,4 @@
+import config from "../config/config";
 import { ILocation } from "../interfaces/location-interface";
 import {
   IReminder,
@@ -7,9 +8,15 @@ import {
 import { TriggerType } from "../interfaces/trigger-interface";
 import { getNearbyPlaces } from "../services/map-service";
 import { fetchTFLInfo } from "../services/tfl-service";
+import { fetchTrafficData } from "../services/traffic-service";
 import { getUserById } from "../services/user-service";
 import { fetchCurrentWeatherInfo } from "../services/weather-service";
 import { doesLineHaveGoodService } from "./tfl";
+import {
+  aggregateTrafficData,
+  interpretConfidence,
+  interpretJamFactor,
+} from "./traffic";
 import { isBadWeather } from "./weather";
 
 /**
@@ -49,7 +56,10 @@ export async function getRemindersToTrigger(
         }
         break;
       case TriggerType.TRAFFIC:
-        // Check traffic
+        const trafficResult = await handleTraffic(location, reminder);
+        if (trafficResult) {
+          out.push(trafficResult);
+        }
         break;
       case TriggerType.GROCERY:
         const groceryResult = await handleNearbyPlace(
@@ -164,4 +174,42 @@ async function handleNearbyPlace(
     reminder,
     message: `Nearby (${radius}m) ${placeName} found: ${nearbyPlaces.places[0].displayName.text}`,
   };
+}
+
+async function handleTraffic(location: ILocation, reminder: IReminder) {
+  const { data, error } = await getUserById(reminder.user_id);
+  if (error) {
+    console.error(
+      "Error fetching user during grocery store trigger check",
+      error
+    );
+    return;
+  }
+
+  const radius = data.radius;
+  const { data: trafficData, error: trafficError } = await fetchTrafficData(
+    location,
+    radius
+  );
+  if (!trafficData || trafficError) {
+    return;
+  }
+
+  const aggergatedData = aggregateTrafficData(trafficData);
+  const interpretedJamFactor = interpretJamFactor(
+    aggergatedData.averageJamFactor
+  );
+  const interpretedConfidence = interpretConfidence(
+    aggergatedData.averageConfidence
+  );
+
+  if (
+    aggergatedData.averageJamFactor >
+    config.TRAFFIC_JAM_FACTOR_TRIGGER_THRESHOLD
+  ) {
+    return {
+      reminder,
+      message: `Traffic jam detected: ${interpretedJamFactor} (${radius}m) | ${interpretedConfidence}`,
+    };
+  }
 }
