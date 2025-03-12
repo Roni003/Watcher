@@ -1,3 +1,4 @@
+import SwiftUI
 import Foundation
 import CoreLocation
 
@@ -5,6 +6,7 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
   var locationManager = CLLocationManager()
   private var timer: Timer?
   private var updateInterval: TimeInterval = 180.0
+  private var isAppInForeground: Bool = true
   public var isUserInEngland: Bool = false
   
   public func setUpdateInterval(_ interval: TimeInterval) {
@@ -12,6 +14,12 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
     print("Triggercheck fetch interval set to: \(interval)")
     self.updateTimerInterval(to: interval)
   }
+  
+  public func updateAppState(isInForeground: Bool) {
+    self.isAppInForeground = isInForeground
+    print("App state updated: \(isInForeground ? "foreground" : "background")")
+  }
+  
   
   override init() {
     super.init()
@@ -87,6 +95,10 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
   
   private func checkAndSendLocation() {
     let location = self.getLocation()
+    if (self.isAppInForeground) {
+      print("Skipping triggercheck since app is in foreground")
+      return
+    }
     
     if (location != nil) {
       Task {

@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DashboardView: View {
+  @Environment(\.scenePhase) private var scenePhase
   @Environment(\.colorScheme) var colorScheme
   @StateObject var reminderViewModel = ReminderViewModel()
   @State private var showModal = false // State variable to control modal visibility
@@ -64,6 +65,18 @@ struct DashboardView: View {
           await self.reminderViewModel.loadReminders()
         }
       })
+    }
+    .onChange(of: scenePhase) { oldPhase, newPhase in
+      switch newPhase {
+      case .active:
+        locationManager.updateAppState(isInForeground: true)
+      case .background:
+        locationManager.updateAppState(isInForeground: false)
+      case .inactive:
+        locationManager.updateAppState(isInForeground: false)
+      @unknown default:
+        break
+      }
     }
   }
 }
