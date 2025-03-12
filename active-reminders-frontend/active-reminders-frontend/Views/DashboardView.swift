@@ -59,7 +59,7 @@ struct DashboardView: View {
       }
     }
     .sheet(isPresented: $showModal) { // Show modal when showModal is true
-      NewReminderModalView(onReminderCreated: {
+      NewReminderModalView(locationManager: self.locationManager, onReminderCreated: {
         Task {
           await self.reminderViewModel.loadReminders()
         }

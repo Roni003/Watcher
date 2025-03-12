@@ -5,6 +5,7 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
   var locationManager = CLLocationManager()
   private var timer: Timer?
   private var updateInterval: TimeInterval = 180.0
+  public var isUserInEngland: Bool = false
   
   public func setUpdateInterval(_ interval: TimeInterval) {
     self.updateInterval = interval
@@ -16,6 +17,8 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
     super.init()
     locationManager.delegate = self
     checkLocationAuthorization()
+    
+    self.isUserInEngland = Locale.current.region?.identifier == "GB"
   }
   
   deinit {

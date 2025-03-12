@@ -12,10 +12,12 @@ struct NewReminderModalView: View {
   @Environment(\.dismiss) var dismiss
   var onReminderCreated: () -> Void
   
-  init(onReminderCreated: @escaping () -> Void) {
+  init(locationManager: LocationManagerModel, onReminderCreated: @escaping () -> Void) {
+    self.locationManager = locationManager
     self.onReminderCreated = onReminderCreated
   }
   
+  @State private var locationManager: LocationManagerModel
   @State private var showAlert = false
   @State private var alertTitle: String = ""
   @State private var description: String = ""
@@ -86,7 +88,7 @@ struct NewReminderModalView: View {
           .font(.headline)
           .bold()
         
-        ForEach(triggerTypes, id: \.self) { triggerType in
+        ForEach(triggerTypes.filter { !($0 == .tfl && !self.locationManager.isUserInEngland) }, id: \.self) { triggerType in
           TriggerToggleView(
             triggerType: triggerType,
             isSelected: selectedTrigger == triggerType,
@@ -100,6 +102,7 @@ struct NewReminderModalView: View {
               }
             }
           )
+          
           if self.selectedTrigger == triggerType {
             Text(triggerType.descriptionText)
               .font(.footnote)
