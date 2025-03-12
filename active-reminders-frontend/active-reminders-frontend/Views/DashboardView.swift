@@ -18,6 +18,13 @@ struct DashboardView: View {
   
   var body: some View {
     VStack() {
+      if reminderViewModel.reminders.isEmpty {
+        Text("No reminders created yet")
+          .padding(.vertical, 20)
+          .foregroundColor(.secondary)
+          .bold()
+          .font(.subheadline)
+      }
       ReminderListView(reminders: reminderViewModel.reminders, onChange: {
         Task {
           await reminderViewModel.loadReminders()
