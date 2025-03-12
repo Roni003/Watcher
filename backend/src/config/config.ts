@@ -13,10 +13,11 @@ interface Config {
 }
 
 const config: Config = {
-  TRIGGER_CHECK_MIN_INTERVAL_MS: 1000 * 28, // Don't let users spam triggercheck endpoint
+  environment: process.env.ENVIRONMENT as "dev" | "prod",
+  TRIGGER_CHECK_MIN_INTERVAL_MS:
+    process.env.ENVIRONMENT == "dev" ? 1000 * 1 : 1000 * 150, // Don't let users spam triggercheck endpoint
   TRAFFIC_JAM_FACTOR_TRIGGER_THRESHOLD: 5.5, // Jam factor above this triggers traffic reminder
   port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
-  environment: "dev",
   supabaseKey: process.env.SUPABASE_KEY || "",
   supabaseURL: process.env.SUPABASE_URL || "",
   openweatherKey: process.env.OPENWEATHER_KEY || "",

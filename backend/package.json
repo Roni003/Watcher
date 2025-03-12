@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "build": "npx tsc",
-    "start": "npx tsc && node build/src/index.js"
+    "start": "npx tsc && ENVIRONMENT=prod node build/src/index.js",
+    "dev": "npx tsc && ENVIRONMENT=dev node build/src/index.js "
   },
   "author": "",
   "license": "ISC",

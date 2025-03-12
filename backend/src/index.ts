@@ -10,6 +10,7 @@ const app: express.Application = express();
 const port: number = config.port;
 
 app.listen(port, () => {
+  console.log(`Running in mode: ${config.environment}`);
   console.log(`Listening at http://localhost:${port}`);
 });
 
