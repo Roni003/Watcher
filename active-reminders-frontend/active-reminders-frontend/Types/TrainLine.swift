@@ -14,13 +14,42 @@ enum TrainLine: String, CaseIterable, Codable {
   case circle = "Circle"
   case district = "District"
   case elizabeth = "Elizabeth"
-  case hammersmith = "Hammersmith & City"
+  case hammersmith = "hammersmith-city"
   case jubilee = "Jubilee"
   case metropolitan = "Metropolitan"
   case northern = "Northern"
   case piccadilly = "Piccadilly"
   case victoria = "Victoria"
-  case waterloo = "Waterloo & City"
+  case waterloo = "waterloo-city"
+  
+  var displayName: String {
+    switch self {
+    case .bakerloo:
+      return "Bakerloo"
+    case .central:
+      return "Central"
+    case .circle:
+      return "Circle"
+    case .district:
+      return "District"
+    case .elizabeth:
+      return "Elizabeth"
+    case .hammersmith:
+      return "Hammersmith & City"
+    case .jubilee:
+      return "Jubilee"
+    case .metropolitan:
+      return "Metropolitan"
+    case .northern:
+      return "Northern"
+    case .piccadilly:
+      return "Piccadilly"
+    case .victoria:
+      return "Victoria"
+    case .waterloo:
+      return "Waterloo & City"
+    }
+  }
   
   var color: Color {
     switch self {

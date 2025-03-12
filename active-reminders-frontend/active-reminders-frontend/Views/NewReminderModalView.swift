@@ -126,7 +126,7 @@ struct NewReminderModalView: View {
                         .fill(trainLine.color)
                         .frame(width: 12, height: 12)
                       
-                      Text(trainLine.rawValue)
+                      Text(trainLine.displayName)
                         .foregroundColor(.primary)
                       
                       Spacer()
