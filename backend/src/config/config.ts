@@ -8,6 +8,7 @@ interface Config {
   openweatherKey: string;
   tflKey: string;
   googleMapsKey: string;
+  hereKey: string;
 }
 
 const config: Config = {
@@ -19,6 +20,7 @@ const config: Config = {
   openweatherKey: process.env.OPENWEATHER_KEY || "",
   tflKey: process.env.TFL_KEY || "",
   googleMapsKey: process.env.GOOGLE_MAPS_KEY || "",
+  hereKey: process.env.HERE_KEY || "",
 };
 
 export default config;
