@@ -16,6 +16,6 @@ func triggerReminders(reminderMessagePairs: [ReminderMessagePair]) {
 private func triggerReminder(reminderMessagePair: ReminderMessagePair) {
   sendNotificationForReminder(reminderMessagePair: reminderMessagePair)
   Task {
-//    try await deleteReminder(reminderMessagePair.reminder.id) TODO: uncomment after testing
+    try await deleteReminder(reminderMessagePair.reminder.id)
   }
 }
