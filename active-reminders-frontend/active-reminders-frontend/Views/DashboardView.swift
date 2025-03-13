@@ -56,6 +56,7 @@ struct DashboardView: View {
     })
     .onAppear() {
       Task {
+        // TODO: This doesn't work if the app triggers it and user opens it
         await self.reminderViewModel.loadReminders()
       }
     }

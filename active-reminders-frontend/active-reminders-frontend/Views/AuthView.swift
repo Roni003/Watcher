@@ -44,6 +44,8 @@ struct AuthView: View {
         }
       }
     }
+    .navigationTitle("Login")
+    .padding(.top, 14)
     .onOpenURL(perform: { url in
       Task {
         do {

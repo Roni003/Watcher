@@ -14,12 +14,12 @@ struct AppView: View {
 
   var body: some View {
     Group {
-      if isAuthenticated {
-          NavigationStack {
-            DashboardView()
-          }
-      } else {
-        AuthView()
+      NavigationStack {
+        if isAuthenticated {
+          DashboardView()
+        } else {
+          AuthView()
+        }
       }
     }
     .onAppear {
