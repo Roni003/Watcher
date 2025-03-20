@@ -29,7 +29,6 @@ struct NewReminderModalView: View {
   private var inputBoxPadding = 10
   private var inputBoxCornerRadius = 8
   
-  // Add all trigger types in the order you want them displayed
   private let triggerTypes: [TriggerType] = [
     .weather,
     .traffic,

@@ -10,4 +10,5 @@ import Foundation
 struct PatchUserRequest: Codable {
   var radius: Int?
   var fetch_interval: Int?
+  var battery_saver_mode: Bool?
 }

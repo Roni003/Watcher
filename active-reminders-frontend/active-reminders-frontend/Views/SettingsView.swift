@@ -13,11 +13,12 @@ struct SettingsView: View {
   @State private var fetchIntervalString: String = ""
   @State private var email: String = ""
   @State private var locationManager: LocationManagerModel
+  @State private var isBatterySaverModeEnabled = true
+
   
   private var defaultRadius = 200
-  private var defaultInterval = 180 // 3 minutes
-  private var minimumInterval = 30 // 30 seconds
-//  private var minimumInterval = 0 // TODO: Only for dev mdoe
+  private var defaultInterval = 180
+  private var minimumInterval = 30
   
   private let fontSize: CGFloat = 20
   private var inputBoxBackgroundColor = Color(UIColor(hexCode: "#303031", alpha: 1))
@@ -55,7 +56,15 @@ struct SettingsView: View {
         .background(inputBoxBackgroundColor)
         .cornerRadius(8)
         .bold()
-      
+
+      Toggle(isOn: $isBatterySaverModeEnabled) {
+        Text("Battery Saver Mode")
+          .font(.system(size: fontSize - 2))
+      }
+      .padding(8)
+      .background(inputBoxBackgroundColor)
+      .cornerRadius(8)
+      .bold()
       
       Spacer()
     }
@@ -97,6 +106,7 @@ struct SettingsView: View {
       
       self.radiusString = String(data.radius)
       self.fetchIntervalString = String(data.fetch_interval)
+      self.isBatterySaverModeEnabled = data.battery_saver_mode
       self.email = currentUser.email ?? "?"
     } catch {
       debugPrint(error)
@@ -107,7 +117,7 @@ struct SettingsView: View {
     let radius: Int = Int(self.radiusString) ?? defaultRadius
     var fetchInterval: Int = Int(self.fetchIntervalString) ?? defaultInterval
     fetchInterval = max(fetchInterval, minimumInterval)
-    let patchRequest = PatchUserRequest(radius: radius, fetch_interval: fetchInterval)
+    let patchRequest = PatchUserRequest(radius: radius, fetch_interval: fetchInterval, battery_saver_mode: self.isBatterySaverModeEnabled)
     
     self.locationManager.setUpdateInterval(TimeInterval(fetchInterval))
     Task {

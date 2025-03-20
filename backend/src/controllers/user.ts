@@ -16,11 +16,12 @@ export async function getUser(req: Request, res: Response) {
 }
 
 export async function patchUser(req: Request, res: Response) {
-  const { radius, fetch_interval } = req.body;
+  const { radius, fetch_interval, battery_saver_mode } = req.body;
 
   const update = {
     radius,
     fetch_interval,
+    battery_saver_mode,
   };
 
   const { data, error } = await patchUserById(req.user.id, update);
