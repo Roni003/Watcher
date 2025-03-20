@@ -14,4 +14,5 @@ struct User: Codable {
   let blacklist: [String:String]?
   let created_at: String
   let updated_at: String?
+  let battery_saver_mode: Bool
 }
