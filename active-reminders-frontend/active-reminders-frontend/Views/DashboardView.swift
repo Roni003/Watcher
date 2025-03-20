@@ -20,7 +20,7 @@ struct DashboardView: View {
   var body: some View {
     VStack() {
       if reminderViewModel.reminders.isEmpty {
-        Text("No reminders created yet")
+        Text("No reminders or alerts created yet")
           .padding(.vertical, 20)
           .foregroundColor(.secondary)
           .bold()
