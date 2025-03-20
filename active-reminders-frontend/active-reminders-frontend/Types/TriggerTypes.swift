@@ -55,15 +55,15 @@ extension TriggerType {
   var descriptionText: String {
     switch self {
     case .weather:
-      return "This reminder will trigger when there is rain, snow, storms in your area."
+      return "This alert will trigger when there is rain, snow, storms in your area."
     case .traffic:
-      return "This reminder will trigger when there is heavy traffic in your area."
+      return "This alert will trigger when there is heavy traffic in your area."
     case .tfl:
-      return "This reminder will trigger when there are delays or distruptions on the line you choose."
+      return "This alert will trigger when there are delays or distruptions on the line you choose."
     case .groceryStore:
-      return "This reminder will trigger when there is a grocery store near your location."
+      return "This alert will trigger when there is a grocery store near your location."
     case .pharmacy:
-      return "This reminder will trigger when there is a pharmacy near your location."
+      return "This alert will trigger when there is a pharmacy near your location."
       //    case .customLocation:
       //      return "Custom Location"
     }

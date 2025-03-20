@@ -73,7 +73,7 @@ struct NewReminderModalView: View {
         }
       }
 
-      TextField("Description", text: $description)
+      TextField("Reminder name", text: $description)
         .padding(CGFloat(inputBoxPadding))
         .background(inputBoxBackgroundColor)
         .cornerRadius(CGFloat(inputBoxCornerRadius))
@@ -84,7 +84,7 @@ struct NewReminderModalView: View {
       // -----------------------
   
       VStack(alignment: .leading, spacing: 12) {
-        Text("Choose a trigger (optional)")
+        Text("Turn it into a location based alert (optional)")
           .font(.headline)
           .bold()
         
