@@ -56,7 +56,6 @@ struct DashboardView: View {
     })
     .onAppear() {
       Task {
-        // TODO: This doesn't work if the app triggers it and user opens it
         await self.reminderViewModel.loadReminders()
       }
     }
@@ -70,6 +69,9 @@ struct DashboardView: View {
     .onChange(of: scenePhase) { oldPhase, newPhase in
       switch newPhase {
       case .active:
+        Task {
+          await self.reminderViewModel.loadReminders()
+        }
         locationManager.updateAppState(isInForeground: true)
       case .background:
         locationManager.updateAppState(isInForeground: false)
