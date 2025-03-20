@@ -27,24 +27,24 @@ struct DashboardView: View {
           .bold()
           .font(.subheadline)
       }
-//      Text("Regular Reminders")
-//        .font(.headline)
-//        .frame(alignment: .leading)
-      ReminderListView(reminders: reminderViewModel.getRegularReminders(), onChange: {
-        Task {
-          await reminderViewModel.loadReminders()
-        }
-      }, title: "Regular Reminders")
-      .frame(height: min(CGFloat(REGULAR_REMINDERS_MAX_HEIGHT), CGFloat(reminderViewModel.getRegularReminders().count * 45 + 50)))
+
+      if !reminderViewModel.getRegularReminders().isEmpty {
+        ReminderListView(reminders: reminderViewModel.getRegularReminders(), onChange: {
+          Task {
+            await reminderViewModel.loadReminders()
+          }
+        }, title: "Regular Reminders")
+        .frame(height: min(CGFloat(REGULAR_REMINDERS_MAX_HEIGHT), CGFloat(reminderViewModel.getRegularReminders().count * 45 + 50)))
+      }
     
-//      Text("Location-based alerts")
-//        .font(.headline)
-//        .frame(alignment: .leading)
-      ReminderListView(reminders: reminderViewModel.getAlertReminders(), onChange: {
-        Task {
-          await reminderViewModel.loadReminders()
-        }
-      }, title: "Alerts")
+      if !reminderViewModel.getAlertReminders().isEmpty {
+        ReminderListView(reminders: reminderViewModel.getAlertReminders(), onChange: {
+          Task {
+            await reminderViewModel.loadReminders()
+          }
+        }, title: "Alerts")
+      }
+      
       Spacer()
       HStack {
         Image(systemName: "plus.app.fill")
