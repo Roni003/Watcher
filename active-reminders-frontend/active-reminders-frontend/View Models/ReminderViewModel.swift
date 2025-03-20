@@ -2,7 +2,19 @@ import SwiftUI
 import Foundation
 
 class ReminderViewModel: ObservableObject {
-  @Published var reminders: [Reminder] = []
+  @Published private var reminders: [Reminder] = []
+  
+  func getRegularReminders() -> [Reminder] {
+    return reminders.filter { $0.trigger == nil }
+  }
+  
+  func getAlertReminders() -> [Reminder] {
+    return reminders.filter { $0.trigger != nil }
+  }
+  
+  func isEmpty() -> Bool {
+    return reminders.isEmpty
+  }
   
   func loadReminders() async {
     do {

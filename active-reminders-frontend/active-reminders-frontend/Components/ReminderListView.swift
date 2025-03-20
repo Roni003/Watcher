@@ -11,10 +11,15 @@ import SwiftUI
 struct ReminderListView: View {
   var reminders: [Reminder]
   var onChange: () -> Void
+  var title: String
   
   var body: some View {
-    List(reminders) { reminder in
-      ReminderRowView(reminder: reminder, onChange: self.onChange)
+    List {
+        Section(header: Text(title).font(.headline)) {
+          ForEach(reminders) { reminder in
+            ReminderRowView(reminder: reminder, onChange: self.onChange)
+          }
+        }
     }
     .contentMargins(10)
   }

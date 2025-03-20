@@ -15,22 +15,37 @@ struct DashboardView: View {
   @State private var showModal = false // State variable to control modal visibility
   private var locationManager = LocationManagerModel()
 
+  private var REGULAR_REMINDERS_MAX_HEIGHT = 275
   private var newReminderButtonFontSize = 22
   
   var body: some View {
     VStack() {
-      if reminderViewModel.reminders.isEmpty {
+      if reminderViewModel.isEmpty() {
         Text("No reminders or alerts created yet")
           .padding(.vertical, 20)
           .foregroundColor(.secondary)
           .bold()
           .font(.subheadline)
       }
-      ReminderListView(reminders: reminderViewModel.reminders, onChange: {
+//      Text("Regular Reminders")
+//        .font(.headline)
+//        .frame(alignment: .leading)
+      ReminderListView(reminders: reminderViewModel.getRegularReminders(), onChange: {
         Task {
           await reminderViewModel.loadReminders()
         }
-      })
+      }, title: "Regular Reminders")
+      .frame(height: min(CGFloat(REGULAR_REMINDERS_MAX_HEIGHT), CGFloat(reminderViewModel.getRegularReminders().count * 45 + 50)))
+    
+//      Text("Location-based alerts")
+//        .font(.headline)
+//        .frame(alignment: .leading)
+      ReminderListView(reminders: reminderViewModel.getAlertReminders(), onChange: {
+        Task {
+          await reminderViewModel.loadReminders()
+        }
+      }, title: "Alerts")
+      Spacer()
       HStack {
         Image(systemName: "plus.app.fill")
           .font(.system(size: CGFloat(newReminderButtonFontSize + 4)))
