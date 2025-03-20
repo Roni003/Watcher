@@ -50,6 +50,10 @@ struct ReminderRowView: View {
       .tint(.red)
     }
     .onTapGesture {
+      if (self.reminder.trigger == nil) {
+        return
+      }
+      
       self.reminder.enabled.toggle()
       Task {
         do {
