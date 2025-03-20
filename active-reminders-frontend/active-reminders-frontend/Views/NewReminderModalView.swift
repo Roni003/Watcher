@@ -56,8 +56,8 @@ struct NewReminderModalView: View {
         Spacer()
         
         Button("Create") {
-          handleCreate()
-          if(validate()) {
+          if(isValidForm()) {
+            handleCreate()
             dismiss()
           } else {
             showAlert = true
@@ -176,7 +176,7 @@ struct NewReminderModalView: View {
     }
   }
   
-  func validate() -> Bool {
+  func isValidForm() -> Bool {
     if (self.selectedTrigger == TriggerType.tfl && self.selectedTrainLine == nil) {
       alertTitle = "A TFL reminder must have a train line selected!"
       return false
