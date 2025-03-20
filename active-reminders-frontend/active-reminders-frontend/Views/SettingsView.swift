@@ -120,6 +120,7 @@ struct SettingsView: View {
     let patchRequest = PatchUserRequest(radius: radius, fetch_interval: fetchInterval, battery_saver_mode: self.isBatterySaverModeEnabled)
     
     self.locationManager.setUpdateInterval(TimeInterval(fetchInterval))
+    self.locationManager.setBatterySaverMode(self.isBatterySaverModeEnabled)
     Task {
       let req = try await patchUser(updatedBody: patchRequest)
     }

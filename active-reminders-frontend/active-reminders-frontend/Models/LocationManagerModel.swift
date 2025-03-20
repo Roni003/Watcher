@@ -8,6 +8,7 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
   private var lastSentLocation: Location
   private var timer: Timer?
   private var updateInterval: TimeInterval = 180.0
+  private var isBatterySaverModeEnabled = true
   private var isAppInForeground: Bool = true
   public var isUserInEngland: Bool = false
 
@@ -23,6 +24,11 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
     print("App state updated: \(isInForeground ? "foreground" : "background")")
   }
   
+  public func setBatterySaverMode(_ enabled: Bool) {
+    self.isBatterySaverModeEnabled = enabled
+    print("Battery saver mode updated: \(enabled ? "enabled" : "disabled")")
+  }
+  
   override init() {
     self.lastSentLocation = Location(lat: 0, lon: 0)
     self.isUserInEngland = Locale.current.region?.identifier == "GB"
@@ -30,6 +36,28 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
     super.init()
     locationManager.delegate = self
     checkLocationAuthorization()
+    Task {
+      await self.fetchInitialSettings()
+    }
+  }
+  
+  private func fetchInitialSettings() async {
+    do {
+      let currentUser = try await supabase.auth.session.user
+      
+      let data: User = try await supabase.from("users")
+        .select()
+        .eq("id", value: currentUser.id)
+        .single()
+        .execute()
+        .value
+      
+      
+      self.setUpdateInterval(TimeInterval(data.fetch_interval))
+      self.setBatterySaverMode(data.battery_saver_mode)
+    } catch {
+      debugPrint(error)
+    }
   }
   
   deinit {
@@ -121,8 +149,8 @@ final class LocationManagerModel: NSObject, CLLocationManagerDelegate {
       return
     }
     
-    if !hasLocationChangedSignificantly(from: self.lastSentLocation, to: currentLocation) {
-      print("Location hasn't changed significantly, skipping triggercheck")
+    if !hasLocationChangedSignificantly(from: self.lastSentLocation, to: currentLocation) && self.isBatterySaverModeEnabled {
+      print("Battery saver mode is on AND Location hasn't changed significantly, skipping triggercheck")
       return
     }
     
