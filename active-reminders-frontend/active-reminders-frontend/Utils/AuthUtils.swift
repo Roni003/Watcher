@@ -7,8 +7,8 @@
 
 import Foundation
 
-//let SERVER_URL = "http://localhost:3000/api"
-let SERVER_URL = "https://watcher-backend-app-cnkzh.ondigitalocean.app/api"
+let SERVER_URL = "http://localhost:3000/api"
+//let SERVER_URL = "https://watcher-backend-app-cnkzh.ondigitalocean.app/api"
 
 func getAuthToken() async -> String? {
     do {

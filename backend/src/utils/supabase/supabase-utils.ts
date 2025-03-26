@@ -1,11 +1,16 @@
 import supabaseClient from "../../services/supabase";
-// Function to get user info from JWT session token
-export async function getUserFromToken(sessionToken: string) {
+
+/**
+ * Returns user object from a JWT token
+ * @param jwt
+ * @returns user object
+ */
+export async function getUserFromToken(jwt: string) {
   try {
     const {
       data: { user },
       error,
-    } = await supabaseClient.auth.getUser(sessionToken);
+    } = await supabaseClient.auth.getUser(jwt);
 
     if (error) {
       throw error;
@@ -20,7 +25,6 @@ export async function getUserFromToken(sessionToken: string) {
       email: user.email,
       metadata: user.user_metadata,
       created_at: user.created_at,
-      // Add any other user properties you need
     };
   } catch (error: any) {
     console.error("Error getting user from token:", error.message);

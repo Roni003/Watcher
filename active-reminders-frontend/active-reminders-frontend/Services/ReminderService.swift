@@ -7,7 +7,7 @@
 
 import Foundation
 
-let AUTH_TOKEN_HEADER_KEY = "ar-auth-token"
+let AUTH_TOKEN_HEADER_KEY = "watcher-auth-token"
 
 func fetchReminders() async throws -> [Reminder] {
   guard let token = await getAuthToken() else {
