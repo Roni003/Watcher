@@ -38,15 +38,15 @@ extension TriggerType {
   var displayText: String {
     switch self {
     case .weather:
-      return "Bad Weather"
+      return "Harsh Weather Conditions"
     case .traffic:
-      return "Heavy Traffic"
+      return "Heavy Traffic In Area"
     case .tfl:
-      return "TFL Delays"
+      return "TFL Underground Delays"
     case .groceryStore:
-      return "Grocery Stores"
+      return "Grocery Stores Nearby"
     case .pharmacy:
-      return "Pharmacies"
+      return "Pharmacies Nearby"
 //    case .customLocation:
 //      return "Custom Location"
     }
