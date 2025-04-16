@@ -17,14 +17,14 @@
 			containerPortal = 40850FDB2D5BED6D004DB552 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 40850FE22D5BED6D004DB552;
-			remoteInfo = "active-reminders-frontend";
+			remoteInfo = "frontend";
 		};
 		40850FFE2D5BED6E004DB552 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40850FDB2D5BED6D004DB552 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 40850FE22D5BED6D004DB552;
-			remoteInfo = "active-reminders-frontend";
+			remoteInfo = "frontend";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -36,7 +36,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		40388F352D5BEEFD0064544C /* Exceptions for "active-reminders-frontend" folder in "Watcher" target */ = {
+		40388F352D5BEEFD0064544C /* Exceptions for "frontend" folder in "Watcher" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -46,22 +46,22 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		40850FE52D5BED6D004DB552 /* active-reminders-frontend */ = {
+		40850FE52D5BED6D004DB552 /* frontend */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				40388F352D5BEEFD0064544C /* Exceptions for "active-reminders-frontend" folder in "Watcher" target */,
+				40388F352D5BEEFD0064544C /* Exceptions for "frontend" folder in "Watcher" target */,
 			);
-			path = "active-reminders-frontend";
+			path = "frontend";
 			sourceTree = "<group>";
 		};
-		40850FF62D5BED6E004DB552 /* active-reminders-frontendTests */ = {
+		40850FF62D5BED6E004DB552 /* frontendTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "active-reminders-frontendTests";
+			path = "frontendTests";
 			sourceTree = "<group>";
 		};
-		408510002D5BED6E004DB552 /* active-reminders-frontendUITests */ = {
+		408510002D5BED6E004DB552 /* frontendUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "active-reminders-frontendUITests";
+			path = "frontendUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -96,9 +96,9 @@
 		40850FDA2D5BED6D004DB552 = {
 			isa = PBXGroup;
 			children = (
-				40850FE52D5BED6D004DB552 /* active-reminders-frontend */,
-				40850FF62D5BED6E004DB552 /* active-reminders-frontendTests */,
-				408510002D5BED6E004DB552 /* active-reminders-frontendUITests */,
+				40850FE52D5BED6D004DB552 /* frontend */,
+				40850FF62D5BED6E004DB552 /* frontendTests */,
+				408510002D5BED6E004DB552 /* frontendUITests */,
 				408510152D5BEDEA004DB552 /* Frameworks */,
 				40850FE42D5BED6D004DB552 /* Products */,
 			);
@@ -138,13 +138,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				40850FE52D5BED6D004DB552 /* active-reminders-frontend */,
+				40850FE52D5BED6D004DB552 /* frontend */,
 			);
 			name = Watcher;
 			packageProductDependencies = (
 				40388F2F2D5BEDFE0064544C /* Supabase */,
 			);
-			productName = "active-reminders-frontend";
+			productName = "frontend";
 			productReference = 40850FE32D5BED6D004DB552 /* Watcher.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -162,12 +162,12 @@
 				40850FF52D5BED6E004DB552 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				40850FF62D5BED6E004DB552 /* active-reminders-frontendTests */,
+				40850FF62D5BED6E004DB552 /* frontendTests */,
 			);
 			name = WatcherTests;
 			packageProductDependencies = (
 			);
-			productName = "active-reminders-frontendTests";
+			productName = "frontendTests";
 			productReference = 40850FF32D5BED6E004DB552 /* WatcherTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -185,12 +185,12 @@
 				40850FFF2D5BED6E004DB552 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				408510002D5BED6E004DB552 /* active-reminders-frontendUITests */,
+				408510002D5BED6E004DB552 /* frontendUITests */,
 			);
 			name = WatcherUITests;
 			packageProductDependencies = (
 			);
-			productName = "active-reminders-frontendUITests";
+			productName = "frontendUITests";
 			productReference = 40850FFD2D5BED6E004DB552 /* WatcherUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -429,11 +429,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"active-reminders-frontend/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"frontend/Preview Content\"";
 				DEVELOPMENT_TEAM = 9YG56EF5H8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "active-reminders-frontend/Info.plist";
+				INFOPLIST_FILE = "frontend/Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires your location check for certain reminders.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to provide location-based reminders.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -446,7 +446,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.active-reminders-frontend";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.frontend";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -461,11 +461,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"active-reminders-frontend/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"frontend/Preview Content\"";
 				DEVELOPMENT_TEAM = 9YG56EF5H8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "active-reminders-frontend/Info.plist";
+				INFOPLIST_FILE = "frontend/Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires your location check for certain reminders.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to provide location-based reminders.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -478,7 +478,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.active-reminders-frontend";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.frontend";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -495,7 +495,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.active-reminders-frontendTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.frontendTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -513,7 +513,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.active-reminders-frontendTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.frontendTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -529,12 +529,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.active-reminders-frontendUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.frontendUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "active-reminders-frontend";
+				TEST_TARGET_NAME = "frontend";
 			};
 			name = Debug;
 		};
@@ -545,12 +545,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.active-reminders-frontendUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roni.frontendUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "active-reminders-frontend";
+				TEST_TARGET_NAME = "frontend";
 			};
 			name = Release;
 		};
