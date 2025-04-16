@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct active_reminders_frontendApp: App {
+struct frontendApp: App {
     var body: some Scene {
         WindowGroup {
             AppView()
