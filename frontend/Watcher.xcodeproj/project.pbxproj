@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		40388F302D5BEDFE0064544C /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 40388F2F2D5BEDFE0064544C /* Supabase */; };
 		404AF54E2D6D314C00154601 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 404AF54D2D6D314C00154601 /* CoreLocation.framework */; };
+		405C5C0F2DAFFFFC000535CF /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C5C042DAFFFFC000535CF /* MockURLProtocol.swift */; };
+		405C5C102DAFFFFC000535CF /* RequestsResponsesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C5C092DAFFFFC000535CF /* RequestsResponsesTests.swift */; };
+		405C5C122DAFFFFC000535CF /* LocationManagerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C5C032DAFFFFC000535CF /* LocationManagerModelTests.swift */; };
+		405C5C132DAFFFFC000535CF /* TriggerTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C5C0B2DAFFFFC000535CF /* TriggerTypesTests.swift */; };
+		405C5C142DAFFFFC000535CF /* ReminderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C5C082DAFFFFC000535CF /* ReminderViewModelTests.swift */; };
+		405C5C152DAFFFFC000535CF /* TestImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C5C0A2DAFFFFC000535CF /* TestImports.swift */; };
+		405C5C162DAFFFFC000535CF /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C5C0C2DAFFFFC000535CF /* UserModelTests.swift */; };
+		405C5C172DAFFFFC000535CF /* ReminderModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405C5C062DAFFFFC000535CF /* ReminderModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +38,14 @@
 
 /* Begin PBXFileReference section */
 		404AF54D2D6D314C00154601 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		405C5C032DAFFFFC000535CF /* LocationManagerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerModelTests.swift; sourceTree = "<group>"; };
+		405C5C042DAFFFFC000535CF /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		405C5C062DAFFFFC000535CF /* ReminderModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderModelTests.swift; sourceTree = "<group>"; };
+		405C5C082DAFFFFC000535CF /* ReminderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewModelTests.swift; sourceTree = "<group>"; };
+		405C5C092DAFFFFC000535CF /* RequestsResponsesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsResponsesTests.swift; sourceTree = "<group>"; };
+		405C5C0A2DAFFFFC000535CF /* TestImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImports.swift; sourceTree = "<group>"; };
+		405C5C0B2DAFFFFC000535CF /* TriggerTypesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerTypesTests.swift; sourceTree = "<group>"; };
+		405C5C0C2DAFFFFC000535CF /* UserModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
 		40850FE32D5BED6D004DB552 /* Watcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40850FF32D5BED6E004DB552 /* WatcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40850FFD2D5BED6E004DB552 /* WatcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatcherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,12 +99,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		405C5C0D2DAFFFFC000535CF /* WatcherTests */ = {
+			isa = PBXGroup;
+			children = (
+				405C5C032DAFFFFC000535CF /* LocationManagerModelTests.swift */,
+				405C5C042DAFFFFC000535CF /* MockURLProtocol.swift */,
+				405C5C062DAFFFFC000535CF /* ReminderModelTests.swift */,
+				405C5C082DAFFFFC000535CF /* ReminderViewModelTests.swift */,
+				405C5C092DAFFFFC000535CF /* RequestsResponsesTests.swift */,
+				405C5C0A2DAFFFFC000535CF /* TestImports.swift */,
+				405C5C0B2DAFFFFC000535CF /* TriggerTypesTests.swift */,
+				405C5C0C2DAFFFFC000535CF /* UserModelTests.swift */,
+			);
+			path = WatcherTests;
+			sourceTree = "<group>";
+		};
 		40850FDA2D5BED6D004DB552 = {
 			isa = PBXGroup;
 			children = (
 				40850FE52D5BED6D004DB552 /* frontend */,
 				408510152D5BEDEA004DB552 /* Frameworks */,
 				40850FE42D5BED6D004DB552 /* Products */,
+				405C5C0D2DAFFFFC000535CF /* WatcherTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -259,6 +291,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				405C5C0F2DAFFFFC000535CF /* MockURLProtocol.swift in Sources */,
+				405C5C102DAFFFFC000535CF /* RequestsResponsesTests.swift in Sources */,
+				405C5C122DAFFFFC000535CF /* LocationManagerModelTests.swift in Sources */,
+				405C5C132DAFFFFC000535CF /* TriggerTypesTests.swift in Sources */,
+				405C5C142DAFFFFC000535CF /* ReminderViewModelTests.swift in Sources */,
+				405C5C152DAFFFFC000535CF /* TestImports.swift in Sources */,
+				405C5C162DAFFFFC000535CF /* UserModelTests.swift in Sources */,
+				405C5C172DAFFFFC000535CF /* ReminderModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
